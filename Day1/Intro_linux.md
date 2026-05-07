@@ -11,6 +11,34 @@ We start the tutorial in the Terminal. Open the Terminal on your machine. You'll
 ```
 The `%` is called the prompt; on other machines (e.g. Windows) can also look like this `>`.
 
+## Running commands
+
+Once opened the terminal we are ready to run commands. The command is the first you type, normally can be followed by flags or settings introduced by the symbol `-`, that change the default behaviour of the command.
+
+For example:
+```sh
+(base) eleonora@mac ~ % ls -l 
+total 2536
+drwxr-xr-x   4 eleonora  staff      128 26 May  2025 Aggresso
+drwx------   2 eleonora  staff       64  8 Jul  2024 Apps
+```
+The first line after the prompt is the command we are executing. In this case `ls` is listing all files and directories in the current working directory. The flag `-l` forces the `ls` command to print the long version of the output with extended information about the directory's content.
+
+We can also specify to list a specific directory to inspect by adding the name of what we want to inspect after the `-l`
+```sh
+(base) eleonora@mac ~ %  ls -l Conferences/CGUE_eukaryotics 
+total 0
+drwxr-xr-x  10 eleonora  staff    320 12 Sep  2024 Expenses claim
+-rw-rw----@  1 eleonora  staff  57498 20 Aug  2024 Request-for-approval-to-Travel-Oct-2023_CGUE.docx
+```
+
+Whenever we want to know how a command works we can type `man` followed by the command. 
+```sh
+(base) eleonora@mac ~ %  man ls 
+```
+Another way is to type `-h` or `--help` after the command or program we want to execute.
+
+
 ## Navigating and working in the filesystem
 
 The nested hierarchy of folders and files on your computer is called the filesystem. When we use the computer, we are used to clicking on the folder or the file we want to open. On the terminal, we cannot do that with a click, but we need to navigate and access the folder (we normally refer to them as directories) we want to open with specific commands. 
