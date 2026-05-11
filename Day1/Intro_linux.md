@@ -111,11 +111,15 @@ nano <name-file>
 ```
 Once opened, you can look at it, you can move around with the cursor, write, paste, copy, etc, etc. Once done, you can ext `nano` with `ctrl + x`. If the file has been modified, `nano` will ask if you want to save it, and you say yes by typing `y`. The program will then quit, and you will find the file in the directory. 
 
-## Running a program
-
-All the programs that you have installed on your machine or that you'll find in the tutorial have a manual. To access the manual, you can type the name of the program followed by the flag `-h` or `--h` or `-help`. This will show you, on the screen, all the possible flags and options you can execute the command with.
+## Wildcards and pattern search
 
 
+
+## Piping and redirection
+
+
+
+## Useful resources
 These are just some very basic commands and instructions on how to use the command line. Please come back to this tutorial if you need help while running the phylogenomics practical.
 
 For a more in-depth read, a very good starting book for your first steps in bioinformatics is *Practical Computing for Biologists by Haddoc and Dunn*. You can find more info [here](https://practicalcomputing.org/index.html). 
