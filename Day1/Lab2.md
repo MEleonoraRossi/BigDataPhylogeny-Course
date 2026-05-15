@@ -1,16 +1,10 @@
-# CrashCourse-Phylogenomics
+# LAb 2 Inferring Orthology
 
-This hands-on course will introduce you to the awesomeness of phylogenomics.
-
-You will learn the most fundamental steps in the phylogenomics pipeline, allowing you to go from a bunch of sequences from different species to a phylogenetic tree that represents how these species are related to each other in evolutionary terms. 
-
-The phylogenomics pipeline can become very complex, many additional steps might be included (particularly at the stage of dataset assembly!) and some analyses can take weeks to complete. Pipelines are modular, meaning they can (and should) be improved, as well as modified to the particular question at hand. Here, we will cover the basics of a phylogenomic pipeline: identification of homologs, multiple sequence alignment, alignment trimming, and phylogenetic inference with concatenation and coalescent methods.
+Introduction to UNIX-Linux. OrthoFinder. Output interpretation. 
 
 
 ## Objective and data
 
-
-We will use a dataset [from this paper](https://academic.oup.com/sysbio/article/65/6/1057/2281640). The starting point is a subset of proteins obtained from genomes/transcriptomes for 23 species of vertebrates. We aim to reconstruct these species' phylogeny using concatenated and coalescent approaches. In practice, we are using a small subset of the genomes/transcriptomes of these species to speed up computations.
 
 Let's start by cloning this repository. The starting data can be found in the `vertebrate_proteomes` folder.
 
