@@ -49,7 +49,7 @@ Packages in R are collections of functions.
 
 
 # Working with phylogenetic trees
-Creating and visualising a tree
+## Creating and visualising a tree
 We can create a simple random tree using the function `rtree()`:
 
 ```r
@@ -58,14 +58,14 @@ plot(tree)
 ```
 
 This will generate a tree with 10 tips (taxa) and display it.
-What do you see?
+### What do you see?
 
 
-How many tips does the tree have?
-Can you identify the branches and nodes?
+### How many tips does the tree have?
+### Can you identify the branches and nodes?
 
 
-Reading a tree from file
+# Reading a tree from file
 In bioinformatics, trees are often stored in Newick format.
 We can create a simple example:
 
@@ -101,7 +101,7 @@ labels
 
 
 # Basic operations on trees
-	# Distances between taxa
+## Distances between taxa
 We can compute pairwise distances:
 
 ```r
@@ -126,7 +126,7 @@ pruned <- drop.tip(tree, "A")
 plot(pruned)
 ```
 
-What changed compared to the original tree?
+### What changed compared to the original tree?
 
 # Rooting a tree
 We can root the tree using a specific taxon:
@@ -141,7 +141,7 @@ Rooting changes the interpretation of evolutionary relationships.
 # Exercise
 Remove two species from a tree and compare the resulting topology.
 
-Visualising trees with ggtree
+# Visualising trees with ggtree
 The `plot()` function is simple but limited.
 
 The `ggtree` package allows more flexible and publication-quality figures.
@@ -172,7 +172,7 @@ geom_nodepoint(color = "red") +
 theme_tree()
 ```
 
-What do the red points represent?
+### What do the red points represent?
 
 # Changing layouts
 We can visualise the same tree with different layouts:
@@ -188,6 +188,7 @@ Other layouts are available (rectangular, slanted, etc.).
 Create a circular tree with:
 
 tip labels
+
 highlighted nodes
 
 
@@ -200,7 +201,7 @@ In R, you can get help using:
 ?ggtree
 ```
 
-Errors are normal, read them carefully and try to understand what is missing.
+### Errors are normal, read them carefully and try to understand what is missing.
 
 
 Always check your objects:
