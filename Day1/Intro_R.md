@@ -1,4 +1,4 @@
-Introduction to R (ape, ggtree)
+3 Introduction to R (ape, ggtree)
 
 by Marta Álvarez Presas
 
@@ -7,29 +7,40 @@ R is a statistical programming environment widely used in bioinformatics, especi
 In this tutorial, we will focus on how to read, manipulate and visualise phylogenetic trees using the packages ape and ggtree.
 
 We start by opening R (or RStudio). You will see a console where you can type commands.
+```r
 >
+```
+
 
 This is the prompt, where you can type commands and run them by pressing Enter.
 
 # Running commands
 In R, you type commands line by line. You can also assign results to objects using the arrow <-.
 For example:
+
+```r
 a <- 3a
+```
+
 This assigns the value 3 to the variable a and prints it.
 
 # Context and setup
 Before working with trees, we need to install and load the required packages.
 
 # Installation (only needed once)
+```r
 install.packages("ape")
 install.packages("ggplot2")
 if (!requireNamespace("BiocManager", quietly = TRUE))  
 	install.packages("BiocManager")
 BiocManager::install("ggtree", update = TRUE, ask = FALSE)
+```
 	
 # Load libraries (needed every session)
+```r
 library(ape)
 library(ggtree)
+```
 Packages in R are collections of functions.
 
 ape is used to manipulate phylogenetic trees
@@ -40,8 +51,10 @@ ggtree is used to visualise them
 Creating and visualising a tree
 We can create a simple random tree using the function rtree():
 
+```r
 tree <- rtree(10)
 plot(tree)
+```
 
 This will generate a tree with 10 tips (taxa) and display it.
 What do you see?
@@ -54,10 +67,14 @@ Can you identify the branches and nodes?
 Reading a tree from file
 In bioinformatics, trees are often stored in Newick format.
 We can create a simple example:
+
+```r
 tree <- read.tree(text="((A:1,B:1):2,C:3);")
 plot(tree)
+```
 
 In this tree:
+
 
 A, B, and C are taxa
 numbers represent branch lengths
@@ -78,28 +95,38 @@ labels
 # Basic operations on trees
 Distances between taxa
 We can compute pairwise distances:
+
+```r
 d <- cophenetic(tree)
 d
-
+```
 Example output:
+```r
   A B C
 A 0 2 6
 B 2 0 6
 C 6 6 0
+```
 
 These values represent evolutionary distances between taxa.
 
 Removing taxa
 Sometimes we want to prune a tree:
+
+```r
 pruned <- drop.tip(tree, "A")
 plot(pruned)
+```
 
 What changed compared to the original tree?
 
 # Rooting a tree
 We can root the tree using a specific taxon:
+
+```r
 rooted <- root(tree, "C")
 plot(rooted)
+```
 
 Rooting changes the interpretation of evolutionary relationships.
 
@@ -111,28 +138,40 @@ The plot() function is simple but limited.
 The ggtree package allows more flexible and publication-quality figures.
 
 # Basic visualisation
+
+```r
 ggtree(tree)
+```
 
 This creates a tree using the grammar of graphics.
 
-Adding tip labels
+Adding tip labels:
+
+```r
 ggtree(tree) +  
 geom_tiplab(size = 4)
+```
 
 This shows the names of the taxa.
 
 # Adding nodes and aesthetics
+
+```r
 ggtree(tree) +  
 geom_tiplab() +  
 geom_nodepoint(color = "red") +  
 theme_tree()
+```
 
 What do the red points represent?
 
 # Changing layouts
 We can visualise the same tree with different layouts:
+
+```r
 ggtree(tree, layout = "circular") +  
 geom_tiplab()
+```
 
 Other layouts are available (rectangular, slanted, etc.).
 
@@ -147,16 +186,19 @@ highlighted nodes
 
 In R, you can get help using:
 
+```r
 ?rtree
 ?ggtree
-
+```
 
 Errors are normal — read them carefully and try to understand what is missing
 
 
 Always check your objects:
 
+```r
 class(tree)
+```
 
 # Final notes
 This tutorial provides only the basic tools to work with phylogenetic trees in R.
