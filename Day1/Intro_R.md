@@ -78,6 +78,7 @@ In this tree:
 
 
 A, B, and C are taxa
+
 numbers represent branch lengths
 
 
@@ -91,13 +92,16 @@ tree
 You should see information about:
 
 number of tips
+
 number of nodes
+
 branch lengths
+
 labels
 
 
 # Basic operations on trees
-Distances between taxa
+	# Distances between taxa
 We can compute pairwise distances:
 
 ```r
