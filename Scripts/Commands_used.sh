@@ -1,3 +1,7 @@
+#Orthofinder
+orthofinder -a 8 -f /user/work/yp19290/BigData_physalia/Proteomes 
+
+
 #MAfft
 for f in *gaps; do mafft $f > $f.mafft; done
 #Concatenaion
