@@ -34,13 +34,34 @@ Python 3.x with ete3.
 
     ".fa": Sequence alignment. As starting data we will use the single-copy orthologous families obtained with OrthoFinder (Single_Copy_Orthologue_Sequences).
 
-    ".nwk": "Raw" gene tree obtained with:
+    ".nwk": "Raw" gene tree 
+
+- Mapping file: A "mapping.txt" file that connects sequence names with species names (format: species:gene1,gene2).
+
+### Practical
+#### Gene tree processing
+- Decompress gene family sequences using tar:
   ```
-  iqtree -s family.fa -m LG+G
+  tar -zxvf Single_Copy_Sequences.tar.gz
   ```
 
-- Mapping: A "mapping.txt" file that connects sequence names with species names (format: species:gene1,gene2).
+- Align sequences:
+  ```
+  mkdir -p aln
+  for f in *.fa; do mafft --auto $f > aln/${f%.fa}_aln.fa; done
+  ```
 
+- Trim alignments:
+  ```
+  mkdir -p trim
+  for f in *.fa; do trimal -in $f -out trim/${f%.fa}_trim.fasta -gappyout; done
+  ```
+
+- Infer gene trees:
+
+  ```
+  for f in *.fasta; do iqtree -s $f -m LG+G -bb 1000 -nt AUTO; done
+  ```
 
 ```
 generax --families families.txt --species-tree S_tree.nwk --prefix output --rec-model UndatedDTL --strategy RESOLVE
