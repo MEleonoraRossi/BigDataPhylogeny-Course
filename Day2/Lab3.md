@@ -76,13 +76,13 @@
   iqtree -s Mollusca_FcC_supermatrix.fas -m GTR+F+I+G4 -bb 1000 -nt AUTO --prefix ml_tree #replace GTR+F+I+G4 with the model you found in Part 1.
   # -nt AUTO lets IQ-TREE select the optimal number of CPU threads.
   ```
-    Check the log-likelihood of the best tree.
+  #### Check the log-likelihood of the best tree:
   ```bash
   grep 'BEST SCORE' ml_tree.iqtree
   ```
   *Higher (less negative) = better.*
 
-  Locate your output tree file.
+  #### Locate your output tree file:
   ```bash
   ls ml_tree.*
   ```
