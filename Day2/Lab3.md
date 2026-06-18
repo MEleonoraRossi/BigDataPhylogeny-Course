@@ -14,7 +14,7 @@
   •	Critically compare bootstrap support with Bayesian posterior probability.
 
   ### Software and Data
-  - Software required: IQ-TREE 2 (≥ 2.2), FigTree (≥ 1.4.4), a web browser for iTOL.
+  - Software required: IQ-TREE (≥ 2.2), FigTree (≥ 1.4.4), a web browser for iTOL.
   
     Data files provided: Mollusca_FcC_supermatrix.fas, alt_topo.nwk (alternative topology).
     All commands assume you are working in the directory where your data files are located.
@@ -27,9 +27,20 @@
   ### 1.2. Key information criteria
   | Criterion	| Description & preference |
   | --- | --- |
-  | AIC (Akaike)	| "Penalises each free parameter by 2. Tends to select slightly richer models. Use when prediction is the goal." |
-  | AICc	| "AIC corrected for small sample size. Preferred when n / k < 40 (n = sites, k = parameters)." |
-  | BIC (Bayesian)	| "Stronger penalty (ln n per parameter). Tends to prefer simpler models. Recommended for most phylogenomic datasets." |
+  | AIC (Akaike)	| Penalises each free parameter by 2. Tends to select slightly richer models. Use when prediction is the goal. |
+  | AICc	| AIC corrected for small sample size. Preferred when n / k < 40 (n = sites, k = parameters). |
+  | BIC (Bayesian)	| Stronger penalty (ln n per parameter). Tends to prefer simpler models. Recommended for most phylogenomic datasets. |
+
+  ### 1.3 Running ModelFinder in IQ-Tree
+  IQ-TREE integrates ModelFinder, which evaluates hundreds of substitution models efficiently.
+
+  ```bash
+  # Run ModelFinder (standalone — no tree inference).
+  iqtree -s Mollusca_FcC_supermatrix.fas -m MF -B 1000 --prefix model_test
+  # -m MF = ModelFinder only; -B 1000 requests 1000 ultrafast bootstrap replicates (used later).
+  ```
+
+
 
 
 
