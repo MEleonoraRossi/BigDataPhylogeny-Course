@@ -4,6 +4,8 @@ orthofinder -a 8 -f /user/work/yp19290/BigData_physalia/Proteomes
 
 #MAfft
 for f in *gaps; do mafft $f > $f.mafft; done
+#Trimal
+
 #Concatenaion
 perl FASconCAT-G_v1.04.pl -l -s
 #Iqtree genetrees 
@@ -41,3 +43,16 @@ mpirun -np 8 --oversubscribe \
     -x 1 10000 \
     Mollusca_catpoisson_chain1
 ```
+
+#To check for convergence
+bpcomp -x burnin chain1  chain2
+
+#To get the parameters
+tracecomp -x burnin chain1  chain2
+
+
+
+##Time calibration 
+
+iqtree3 -s FcC_supermatrix.fas -m LG+C60+G -te Mollusca_LGC60_rooted.tree --dating mcmctree --prefix MCMCtree_mollusca
+
