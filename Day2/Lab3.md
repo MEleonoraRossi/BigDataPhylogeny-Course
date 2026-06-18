@@ -40,7 +40,8 @@
   # -m MF = ModelFinder only.
   ```
 
-    #### Inspect the results file:
+  #### Inspect the results file:
+    
     ```bash
     cat model_test.iqtree | grep -A5 'Best-fit model' # The best model according to BIC is printed here.
     ```
@@ -49,7 +50,7 @@
     Look for lines labelled 'AIC', 'AICc', and 'BIC' — they may differ! Always justify which criterion you use.
     Common best-fit models for chloroplast data: GTR+F+I+G4, TVM+F+G4, SYM+I+G4.
 
-    #### Understanding the model notation
+  #### Understanding the model notation
     | Symbol	| Meaning |
     | --- | --- |
     | GTR	| General Time Reversible — 6 substitution rate categories, most parameter-rich. |
