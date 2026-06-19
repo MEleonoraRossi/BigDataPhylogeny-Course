@@ -44,42 +44,54 @@ It will take 40 minutes to run, let it run, you will go back to the output later
 
  The main output of a phylogenomic study is a tree, so reading trees correctly is fundamental. 
  
- Here you have two competing topologies with the same species. 
+ Here you have different trees, have a look at them and try to answer some of the questions 
 
 ![alt text](Nosenko.png)
 
-- List at least 3 differences you can see
-- Can you identify the paraphyletic group?
+1) List at least 3 differences you can see
+2) Can you identify the paraphyletic group?
+3) Is Metazoa monophyletic in these trees?
 
-- Is Metazoa monophyletic in these trees?
+![alt text](treeexamples.png)
 
-<img Simple tree>
-
-- Can you select which branches could be paraphyletic?
-
-- Can you identify a polyphyly group?
-
-- Which topology is correct?
+4) Can you select which branches could be paraphyletic?
 
 
 
+![alt text](fishtree.png)
 
- 
- Reading and comparing trees (same species, different topologies). Identifying monophyly, paraphyly, polyphyly, sister groups, incongruences, etc.
+5) Can you identify a polyphyly group?
+6) Among the taxa represented, can you identify a group that is famously paraphyletic?
 
-Check if Orthofinder is still running, if it has stopped move to the next section of the tutorial.
+![alt text](Redmond_competingtrees.webp)
 
+7) Focusing on section b and c, which topology is correct?
+8) Pay attention to Placozoa. Can you describe how this taxon move in all different trees?
+
+![alt text](Lucatree.webp)
+
+10) Pay close attention to the nodes and the branches of this tree. 
+	- What are the authors of this paper trying to do here? 
+	- Do you see any unxepected pattern depicted in this topology?
+
+Ok we have now familiarised with trees and tree thinking. It's time to make our own. 
+Let's move on the following section!
 
 ## Pre-alignment and quality filtering
 Orthofinder is a very powerful tool, but can be easily mislead users to approach it as a black box.
 
-Check the output by exploring all the different folders that has created. 
-In our case, the one we care the most is `/BigData_physalia/Proteomes/OrthoFinder/Results_Jun03/Single_Copy_Orthologue_Sequences` 
+If it has finished runnind, check the output by exploring all the different folders that has created. 
+If not, we have a folder prepared that you can access and look at the output
 
+```sh
+ls include path
+```
+Our goal is to identify the orthologous genes that we will use to create the super alignment to infer the mollusc phylogeny. 
+In our case, the one we care the most is `/BigData_physalia/Proteomes/OrthoFinder/Results_Jun03/Single_Copy_Orthologue_Sequences` 
 If you have good quality genomes, normally you will end up with a set of genes that orthofinder has identified as single copy orthologs (i.e. true orthologs) and you could ideally start you analysis from these set of genes. Supposedely, these genes do not contain paralogs. 
 In case you are not so lucky (especially when using a lot of transcriptomes), most likely you will have to fish out you genes from the `Orthogroups` of `Orthologues` folders.
 
-Here we were lucky enough that we have retrieve single copies, we will need to align them and infer the trees.
+Here we were lucky enough that we have retrieve single copies, we will now align, trim, and infer the trees.
 
 ## Multiple sequence alignment
 
@@ -100,12 +112,10 @@ The next step is to infer multiple sequence alignments from orthogroups. Multipl
 We will align gene files separately using a for loop:
 
 ```
-for f in *fas; do mafft $f > $f.mafft; done
+for f in *fa; do mafft $f > $f.mafft; done
 ```
 
 To check if all your fastas have aligned count how many *.mafft files have been created.
-
-
 
 ## Alignment trimming
 
@@ -113,7 +123,6 @@ To check if all your fastas have aligned count how many *.mafft files have been 
 Some gene regions (e.g., fast-evolving) are difficult to align and thus positional homology can be uncertain. It is unclear (i.e., problem-specific) whether trimming suspicious regions [improves](https://academic.oup.com/sysbio/article/56/4/564/1682121) or [worsens](https://academic.oup.com/sysbio/article/64/5/778/1685763) tree inference. However, gently trimming very incomplete positions (e.g. with >90% gaps) will speed up computation in the next steps without a significant loss of phylogenetic information.
 
 To trim alignment positions we can use [TrimAl](https://trimal.readthedocs.io/en/latest/) but several other software are also available.
-
 
 ```
 for a in *.mafft;
@@ -126,7 +135,22 @@ done
 
 While diving into phylogenomic pipelines, it is always advisable to check a few intermediate results to ensure we are doing what we should be doing. Multiple sequence alignments can be visualized in [SeaView](http://doua.prabi.fr/software/seaview) or [AliView](https://github.com/AliView/AliView). Also, one could have a quick look at alignments using command line tools (`less -S`).
 
+## Single gene tree inference
 
+We have selected our orthologs, we aligned and we trimmed the sequences. It is always good practice to infer the single gene trees before doing the concatenation of the super matrix. This is because, even if Orthofinder is confidently selecting orthologous genes, it could still retain some paralogs. 
+Let's infer the trees and see what happens.
+
+```sh
+for i in *trim ;
+
+ do iqtree -s $i -m MFP -bb 1000 ;
+
+done
+```
+It will take around 12 min to run. In the mean time you can familiarise yourself with the outputs of IQTREE and the flags we have used [here](https://iqtree.github.io/doc/Tutorial).
+Once the trees are done(you will see several files called `.treefile`), you can download a couple of them on your PC/Mac and read them with FigTree. 
+Check the bootstrap support by selecting the `node label` button on the left and look at the branches, try to see if you notice any long branch. 
+If you don't want to download the trees you can also just open a treefile (e.g. `less OG0000178.fa.mafft.trim.treefile)
 
 ## Concatenate alignment
 
