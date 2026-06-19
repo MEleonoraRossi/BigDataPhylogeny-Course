@@ -107,16 +107,14 @@ Once opened, you can move around with the cursor, write, paste, copy, etc, etc. 
 
 ## Wildcards and Pattern Search
 
-Vwery often in bioinformatics, we need to run the same command hundreds of times on hundred of files. Wildcards are special characters used to match filenames or text patterns in Unix.
+Very often in bioinformatics, we need to run the same command hundreds of times on hundred of files. Wildcards are special characters used to match filenames or text patterns in Unix.
 
 Common wildcards:
 
 - `*` → matches any number of characters
 - `?` → matches a single character
 - `[]` → matches one character from a set
-
-## Examples that you could use in one of your local folder on your machine
-
+Here are some example of how you can use wildcards. You do not need to run them now.
 List all `.fasta` files:
 
 ```bash
@@ -159,6 +157,11 @@ Search for “ATPase” in all `.txt` files:
 
 ```bash
 grep "ATPase" *.txt
+```
+Count how many sequences you have in a fasta file
+
+```bash
+grep -c ">" *fasta
 ```
 
 ---
@@ -211,8 +214,16 @@ cat proteins.fa | grep ">" | wc -l
 Or 
 ```bash
 grep -c ">" proteins.fa 
+```
+## For Loop
 
+the first practicals of the tutorial we will often use a for loop. This help us running the same command for all the files we need. 
+A for loop has normally this structure: for i in *.file ; do <command $i> ; done
+- for i in *file = for every item called *file (it can be the common extension, in our case it can be all fasta files, so *.fa, *.fas, *fasta) call it `i` 
+- `do command $i` = run the command for all the file we have called `i`, we call back the variable i with a `$` sign
+- `done` = end of the loop 
 
+Keep in mind that foor loops can be very useful, however they execute the command for each file one at the time, meaning that they not run in parallel. If you need a quicker solution a job array will be more useful.
 
 ## Useful resources
 These are just some very basic commands and instructions on how to use the command line. Please come back to this tutorial if you need help while running the phylogenomics practical.
