@@ -46,7 +46,7 @@ It will take 40 minutes to run, let it run, you will go back to the output later
  
  Here you have two competing topologies with the same species. 
 
-<img Nosenko>
+![alt text](Nosenko.png)
 
 - List at least 3 differences you can see
 - Can you identify the paraphyletic group?
