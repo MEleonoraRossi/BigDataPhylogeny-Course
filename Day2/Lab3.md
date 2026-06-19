@@ -178,6 +178,12 @@
   | Common criticism	| BS can be conservative (underestimates). PP can be overconfident (inflated by model misspecification). |
   | Software	| IQ-TREE, RAxML (BS). MrBayes, BEAST, PhyloBayes (PP). |
 
+  ### 4.3 Non-parametric bootstrap
+  It is pretty much slower than the UF bootstrap:
+  ```bash
+  iqtree -s Mollusca_FcC_supermatrix.fas -m GTR+F+I+G4 -b 100 -nt AUTO --prefix ml_np_boot # change the model for the one selected in section 1
+  ```
+
   ### 4.2 Building a consensus tree
   A *consensus tree* summarises a set of trees (e.g., bootstrap replicates, MCMC samples) into a single tree. IQ-TREE automatically generates a 50% majority-rule consensus tree ('.contree').
 
