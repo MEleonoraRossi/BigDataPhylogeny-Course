@@ -31,8 +31,8 @@ For this practical you'll need to use the following software (already installed 
 * R, with the packages `ape`, `ggtree`, `ggplot2`, and `tidytree` (for Section 2, visualisation)
 
 We'll be using the following datasets:
-* `cafe_input.tsv` — this corresponds to the 'Orthogroups.GeneCount.tsv' reformatted for CAFE5 (we already prepared it for you).
-* `cafe_tree_ultrametric.nwk` — the topology from previous practicals, made ultrametric. We use `ape::chronos()` (penalized likelihood rate-smoothing) to produce a relative-time ultrametric tree directly from branch lengths.
+* `cafe_input.tsv`: this corresponds to the 'Orthogroups.GeneCount.tsv' reformatted for CAFE5 (we already prepared it for you).
+* `cafe_tree_ultrametric.nwk`: the topology from previous practicals, made ultrametric. We use `ape::chronos()` (penalized likelihood rate-smoothing) to produce a relative-time ultrametric tree directly from branch lengths.
 
 Our tree covers 20 molluscan (+1 brachiopod outgroup) species:
 
@@ -40,25 +40,25 @@ Our tree covers 20 molluscan (+1 brachiopod outgroup) species:
 ((((((((S_philippinensis,V_penis)N8,S_velum)N7,(P_vernedei,S_dalli)N9)N6,((A_californica,C_concholepas)N11,((T_virginea,L_scabra)N13,H_cracherodii)N12)N10)N5,((S_atlantica,O_vulgaris)N15,N_pompilius)N14)N4,V_oligotropha)N3,(((A_discrepans,C_septemvalvis)N18,D_sirenkoi)N17,(E_babai,N_megatrapezata)N19)N16)N2,L_anatina)N1;
 ```
 
-Note that the internal nodes are already labeled (`N1`–`N19`). **Keep these labels** — they are how you will cross-reference CAFE5's ancestral state reconstruction back onto specific branches later in Part 2.
+Note that the internal nodes are already labeled (`N1`–`N19`). **Keep these labels** because they are how you will cross-reference CAFE5's ancestral state reconstruction back onto specific branches later in Section 2.
 
 ---
 
 ### Why does CAFE5 need an *ultrametric* tree? (and not just any tree with branch lengths)
 
-This trips people up, so let's build the intuition properly before running anything.
-
 A regular phylogeny's branch lengths usually represent **amount of evolutionary change** (e.g., substitutions per site). Two sister species can sit at very different distances from their common ancestor if one lineage evolved faster than the other at the sequence level. That's normal and expected for a substitution-based tree.
 
-CAFE5, however, is not modelling sequence substitutions. It's modelling **gene gain/loss as a function of time**, because birth and death are processes that happen *per unit of time*, not per unit of sequence divergence. For the model to compare rates across branches meaningfully, every tip needs to be the same temporal distance from the root — i.e., all species are sampled "now," and the branch lengths must all be in units of **time elapsed**, not substitutions accumulated.
+CAFE5, however, is not modelling sequence substitutions. It's modelling **gene gain/loss as a function of time**, because birth and death are processes that happen *per unit of time*, not per unit of sequence divergence. For the model to compare rates across branches meaningfully, every tip needs to be the same temporal distance from the root (i.e., all species are sampled "now," and the branch lengths must all be in units of **time elapsed**, not substitutions accumulated.
 
 A tree is **ultrametric** when the total branch length from the root to *every* tip is equal. Think of it like this:
 
-> Take a real family tree of living relatives. Whatever happened in each branch of the family, all the living descendants are alive *today* — they are all the same "distance in time" from their common ancestor, even if their genealogies are more or less eventful in between. That's ultrametricity: the *tips* (today) are level, even though the topology and the events inside each branch can be totally different.
+> Take a real family tree of living relatives. Whatever happened in each branch of the family, all the living descendants are alive *today* (they are all the same "distance in time" from their common ancestor), even if their genealogies are more or less eventful in between. That's ultrametricity: the *tips* (today) are level, even though the topology and the events inside each branch can be totally different.
 
-If you fed CAFE5 a tree with substitution-based branch lengths instead, you'd be implicitly telling it that a fast-evolving lineage (long branch, lots of substitutions) has had *more time* for genes to be gained/lost than a slow-evolving one — which conflates two unrelated things: rate of sequence evolution and elapsed time. This would systematically bias your estimate of λ and could make a perfectly normal lineage look like a gene-family-evolution outlier just because its DNA happens to substitute quickly.
+If you fed CAFE5 a tree with substitution-based branch lengths instead, you'd be implicitly telling it that a fast-evolving lineage (long branch, lots of substitutions) has had *more time* for genes to be gained/lost than a slow-evolving one, which conflates two unrelated things: rate of sequence evolution and elapsed time. This would systematically bias your estimate of λ and could make a perfectly normal lineage look like a gene-family-evolution outlier just because its DNA happens to substitute quickly.
 
-This is exactly why we ran the topology through `ape::chronos()` beforehand: chronos takes a tree with substitution-based branch lengths and, using penalized likelihood rate-smoothing, finds a set of *relative time* branch lengths that (a) are internally consistent with an ultrametric tree, and (b) deviate as little as is statistically defensible from the original branch lengths, smoothing out local rate variation rather than blindly forcing equal branch lengths everywhere.
+This is exactly why we ran the topology through `ape::chronos()` beforehand: chronos takes a tree with substitution-based branch lengths and, using penalised likelihood rate-smoothing, finds a set of *relative time* branch lengths that (a) are internally consistent with an ultrametric tree, and (b) deviate as little as is statistically defensible from the original branch lengths, smoothing out local rate variation rather than blindly forcing equal branch lengths everywhere.
+
+You'll find more information in this [Tutorial](https://github.com/hahnlab/CAFE5/blob/master/docs/tutorial/tutorial.md).
 
 **Quick self-check before moving on:** if you `cat` the tree file and you see that all root-to-tip path lengths sum to (approximately) the same number, you have an ultrametric tree. If you're ever unsure whether a tree you've been handed is ultrametric, in R you can check directly:
 
@@ -67,8 +67,6 @@ library(ape)
 tree <- read.tree("data/cafe_tree_ultrametric.nwk")
 is.ultrametric(tree)  # should return TRUE
 ```
-
----
 
 ## 1. Run CAFE5
 
@@ -85,7 +83,7 @@ cat data/cafe_tree_ultrametric.nwk
 - How many species columns?
 - Does the species count match the number of tips in the tree?
 
-> *Tip: `wc -l data/cafe_input.tsv` gives you the family count (minus 1 for the header). `head -1 data/cafe_input.tsv | tr '\t' '\n' | wc -l` gives you the column count — subtract the non-species columns (typically "Orthogroup"/family ID, and sometimes a "Desc" column) to get the species count. Compare that to the 20 tips in our tree above.*
+> *Tip: `wc -l data/cafe_input.tsv` gives you the family count (minus 1 for the header). `head -1 data/cafe_input.tsv | tr '\t' '\n' | wc -l` gives you the column count, subtract the non-species columns (typically "Orthogroup"/family ID, and sometimes a "Desc" column) to get the species count. Compare that to the 20 tips in our tree above.*
 
 ### 1.2 Running CAFE5: single global λ
 
@@ -96,7 +94,8 @@ mkdir -p results/cafe_base
 cafe5 -i data/cafe_input.tsv -t data/cafe_tree_ultrametric.nwk -o results/cafe_base
 ```
 
-*This should run in well under a minute for a dataset this size. Watch the terminal — CAFE5 prints its optimization progress as it searches for the best-fitting λ.*
+*This should run in well under a minute for a dataset this size. Watch the terminal: CAFE5 prints its optimisation progress as it searches for the best-fitting λ.*
+<img width="356" height="282" alt="image" src="https://github.com/user-attachments/assets/2085c048-75ec-4aa6-a128-4539aca586fb" />
 
 **Checkpoint**: Open `results/cafe_base/Base_results.txt`:
 
@@ -113,12 +112,12 @@ Lambda: <a small number, e.g. 0.001-0.01 range typical>
 
 #### Interpreting λ
 
-λ is a **rate per unit branch length** — in our relative-time tree, think of it as "expected number of gene gain/loss events per gene family, per unit of relative time, per lineage." A handful of points to anchor your intuition:
+λ is a **rate per unit branch length**. In our relative-time tree, think of it as "expected number of gene gain/loss events per gene family, per unit of relative time, per lineage." A handful of points to anchor your intuition:
 
-- λ on its own has no fixed "good" or "bad" value — it's only interpretable *relative to* the branch lengths in your specific tree (which are relative-time units from `chronos()`, not millions of years), and relative to λ estimated in other comparable studies using the same kind of tree.
-- A **single global λ** is a strong simplifying assumption: it says every branch in the tree, from your fastest-evolving lineage to your slowest, shares the *same* underlying rate of gene family turnover. Real genomes rarely cooperate with this assumption uniformly — some lineages undergo bursts of gene family expansion (e.g., after whole-genome duplication, or in venom/immune gene families under strong selection) that a single genome-wide rate will smooth over.
-- That's *exactly* why Section 1.4–1.5 exist: the global λ tells you the *average* behaviour, but the per-family and per-branch tests are how you find the *exceptions* to that average — which are usually the biologically interesting bit.
-- If you want to go further after this practical, CAFE5 also supports a **multi-λ ("k") model**, where you assign different parts of the tree (e.g., different clades) to different rate categories, and an **error model**, which accounts for genome assembly/annotation error inflating or deflating apparent gene counts. Both are beyond today's scope, but worth knowing they exist — the single global λ model here is a deliberately simple starting point, not the end of the analysis.
+- λ on its own has no fixed "good" or "bad" value, it's only interpretable *relative to* the branch lengths in your specific tree (which are relative-time units from `chronos()`, not millions of years), and relative to λ estimated in other comparable studies using the same kind of tree.
+- A **single global λ** is a strong simplifying assumption: it says every branch in the tree, from your fastest-evolving lineage to your slowest, shares the *same* underlying rate of gene family turnover. Real genomes rarely cooperate with this assumption uniformly. Some lineages undergo bursts of gene family expansion (e.g., after whole-genome duplication, or in venom/immune gene families under strong selection) that a single genome-wide rate will smooth over.
+- The global λ tells you the *average* behaviour, but the per-family and per-branch tests are how you find the *exceptions* to that average, which are usually the biologically interesting bit.
+- If you want to go further after this practical, CAFE5 also supports a **multi-λ ("k") model**, where you assign different parts of the tree (e.g., different clades) to different rate categories, and an **error model**, which accounts for genome assembly/annotation error inflating or deflating apparent gene counts. Both are beyond today's scope, but worth knowing they exist. The single global λ model here is a deliberately simple starting point, not the end of the analysis.
 
 ### 1.3 What other files did CAFE5 produce?
 
@@ -133,11 +132,11 @@ You should see several files; the ones that matter most for this practical:
 | `*_results.txt` | The headline: model score and estimated λ |
 | `*_asr.tre` | **A**ncestral **s**tate **r**econstruction: a tree (Nexus format) where every node, including internal/ancestral ones, has an inferred gene copy number attached |
 | `*_clade_results.txt` | Per-branch summary: how many gene families expanded vs. contracted on that branch |
-| `*_family_results.txt` (or similar, check `*_results.txt` and look for a wider table) | Per-gene-family table with significance values (see below) |
+| `*_family_results.txt` | Per-gene-family table with significance values (see below) |
 
 ### 1.4 Find the gene families CAFE5 thinks are interesting
 
-Look at the per-family results table (it may be a wider section within `Base_results.txt`, or a separate file depending on your CAFE5 build. Check what's in your `results/cafe_base/` directory and open the most likely candidate). You're looking for two columns:
+Look at the per-family results table (`*_family_results.txt`). You're looking for two columns:
 
 - **Family-wide P-value**: is this family's overall pattern of size change unlikely under the fitted genome-wide λ?
   (Low p-value, conventionally < 0.01, = yes, interesting.)
