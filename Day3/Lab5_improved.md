@@ -28,7 +28,7 @@ By the end of this practical you'll be able to:
 For this practical you'll need to use the following software (already installed in the server):
 * [CAFE v5.1.0.](https://anaconda.org/channels/bioconda/packages/cafe/overview)
 * [biopython](https://anaconda.org/channels/conda-forge/packages/biopython/overview)
-* R, with the packages `ape`, `ggtree`, `ggplot2`, and `tidytree` (for Section 2, visualisation)
+* R, with the packages `ape`, `ggtree`, `ggplot2`, `stringr`, and `tidytree` (for Section 2, visualisation)
 
 We'll be using the following datasets:
 * `cafe_input.tsv`: this corresponds to the 'Orthogroups.GeneCount.tsv' reformatted for CAFE5 (we already prepared it for you).
