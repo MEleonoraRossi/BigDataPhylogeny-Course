@@ -95,6 +95,7 @@ cafe5 -i data/cafe_input.tsv -t data/cafe_tree_ultrametric.nwk -o results/cafe_b
 ```
 
 *This should run in well under a minute for a dataset this size. Watch the terminal: CAFE5 prints its optimisation progress as it searches for the best-fitting λ.*
+
 <img width="356" height="282" alt="image" src="https://github.com/user-attachments/assets/2085c048-75ec-4aa6-a128-4539aca586fb" />
 
 **Checkpoint**: Open `results/cafe_base/Base_results.txt`:
