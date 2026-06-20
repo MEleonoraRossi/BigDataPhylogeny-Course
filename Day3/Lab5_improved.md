@@ -140,16 +140,7 @@ Look at the per-family results table (`*_family_results.txt`). You're looking fo
 
 - **Family-wide P-value**: is this family's overall pattern of size change unlikely under the fitted genome-wide λ?
   (Low p-value, conventionally < 0.01, = yes, interesting.)
-- **Viterbi P-value** (only meaningful when the family-wide p-value is significant): tells you *which specific branch(es)* the unusual change happened on.
 
-#### Reading the two p-values as a funnel, not two separate tests
-
-It helps to think of these as a two-stage filter applied to the *same* family, not two independent tests:
-
-1. **Family-wide p-value** asks: "Across the *whole tree*, does this family's size change more than we'd expect under the global λ?" This is a single number per family — it doesn't tell you *where* on the tree anything unusual happened, only *that* something did.
-2. **Viterbi p-value** is computed **per branch**, and only really worth inspecting *for families that already passed step 1*. It asks: "On this specific branch, is the inferred change in copy number bigger than the global λ would predict for a branch of this length?" A family can be globally significant (step 1) while having the unusual change concentrated on just one or two branches — most branches will show an unremarkable, non-significant Viterbi p-value, and one or two will stand out. Those are your candidate expansion/contraction events.
-
-In short: family-wide p-value tells you *which families* to look at; Viterbi p-values (for those families only) tell you *which branches*. Don't over-interpret Viterbi p-values for families that weren't significant family-wide — at that point you're fishing in the noise.
 
 ### 1.5 Questions
 
@@ -159,31 +150,31 @@ In short: family-wide p-value tells you *which families* to look at; Viterbi p-v
 
 ---
 
-## 2. From numbers to a picture: visualizing gene family evolution on the tree
+## 2. Visualising gene family evolution on the tree
 
-So far everything has lived in text files. The real payoff of CAFE5 — and the figure you'll actually want for a paper or presentation — is seeing *where on the tree* expansions and contractions happened. This section walks you from a single significant family to a publication-style annotated phylogeny.
+So far everything has lived in text files. The real payoff of CAFE5 is seeing *where on the tree* expansions and contractions happened. This section walks you from a single significant family to a publication-style annotated phylogeny.
 
-### 2.0 Pick a family to visualize
+### 2.1 Pick a family to visualise
 
-From your Section 1.4–1.5 exploration, pick one family with a low family-wide p-value (ideally one with a clearly significant Viterbi p-value on at least one branch — this gives you something concrete to point at). Note its Orthogroup ID (e.g. `OG0001234`); you'll need it below.
+From your Section 1.4–1.5 exploration, pick one family with a low family-wide p-value (ideally one with a clearly significant p-value). Note its Orthogroup ID (e.g. `OG0001174`); you'll need it later.
 
 ```bash
-grep "OG0001234" results/cafe_base/Base_family_results.txt
+grep "OG0001174" results/cafe_base/Base_family_results.txt
 ```
 
-### 2.1 Extract the ancestral states for your family
+### 2.2 Extract the ancestral states for your family
 
 The `*_asr.tre` file contains, for **every** family, a tree annotated with inferred copy number at every node (tip and internal). It's a multi-tree Nexus file — one tree per family, in the same order as your input table. You need to pull out the one tree that corresponds to your chosen family.
 
 ```bash
-grep -n "OG0001234" results/cafe_base/Base_asr.tre
+grep -n "OG0001174" results/cafe_base/Base_asr.tre
 ```
 
-This should point you to the right line. Each tree in this file looks like a normal Newick/Nexus tree, except every node label carries an extra `_<count>` suffix — e.g. `N8_3` means "node N8 was reconstructed to have 3 gene copies." This is why we kept the original `N1`–`N19` labels in our input tree: they let you read these counts off directly against the topology you already know, rather than against arbitrary auto-generated node IDs.
+This should point you to the right line. Each tree in this file looks like a normal Newick/Nexus tree, except every node label carries an extra `_<count>` suffix (e.g. `N8_3` means "node N8 was reconstructed to have 3 gene copies"). 
 
-### 2.2 Plot it on the phylogeny with `ggtree` (R)
+### 2.3 Plot it on the phylogeny with `ggtree` (R)
 
-`ggtree` is the field-standard tool for exactly this kind of "decorate a phylogeny with extra data" figure, and it plays nicely with CAFE5/CAFE-family output. Below is a minimal, adaptable script — copy it into an R script or RStudio and adjust the family ID and counts to match your own data.
+`ggtree` is the field-standard tool for exactly this kind of "decorate a phylogeny with extra data" figure, and it plays nicely with CAFE5/CAFE-family output. Below is a minimal, adaptable script. Copy it into an R script or RStudio and adjust the family ID and counts to match your own data.
 
 ```r
 library(ape)
@@ -195,7 +186,7 @@ library(tidytree)
 tree <- read.tree("data/cafe_tree_ultrametric.nwk")
 
 # 2. Build a small data frame of ancestral + tip copy numbers for YOUR chosen family,
-#    read off from Base_asr.tre (Section 2.1). Replace these example values with
+#    read off from Base_asr.tre (Section 2.2). Replace these example values with
 #    the real counts for your family.
 copy_numbers <- data.frame(
   label = c("S_philippinensis","V_penis","S_velum","P_vernedei","S_dalli",
