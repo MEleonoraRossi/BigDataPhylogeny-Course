@@ -23,19 +23,19 @@
     All commands assume you are working in the directory where your data files are located.
 
 ## 1. Matrix concatenation
-In the previous practical we inferred the single gene trees to make sure that no paralogs were retained. Now that we are sure our selected sequencesare good to go, we can concatenate them. 
-We put together a dataset 
+In the previous practical we selected the orthologs and performed multiple sequence alignment and trimming. Now that we are sure our selected sequencesare good to go, we can concatenate them. 
 We are going to use a script `FASconCAT-G_v1.04.pl` that allows us to create the super alignment. It's important that all sequences headers match eachother across fasta files. 
 ```sh
 conda activate BigDataPhylo
-#copy the directory needed
+#copy the directory with the dataset needed
 
 cp -r /home/ubuntu/Share/Concatenation/ .
 #enter the directory, you will see 11 fasta files. These are the alignments we are going to use for the concatenation. IMPORTANT: FASconCAT-G_v1.04.pl is sensible to file extention, that's why all files end with .fas
 perl FASconCAT-G_v1.04.pl -l -s
 ```
 Once it's done you'll see that the script has created three files `FcC_info.xls  FcC_supermatrix.fas  FcC_supermatrix_partition.txt` . The supermatrix is what we need for the next steps.
-
+You can rename the matrix as in `Mollusca_FcC_supermatrix.fas`.
+This is the matrix you will use for the following steps.
 
 ## 2. Model Selection
   ### 2.1 Why does the model matter?
