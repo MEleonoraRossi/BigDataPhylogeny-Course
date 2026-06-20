@@ -84,7 +84,6 @@
 
   ### 1.5 Questions
   1- How many gene families come out as significant (family-wide p < 0.01)?
-  
   2- As a fraction of all families tested, does that number seem high, low, or about what you'd expect?
   (There's no universally "correct" answer here, it depends entirely on the data, but having an intuition for the proportion matters more than memorising a threshold.)
 
