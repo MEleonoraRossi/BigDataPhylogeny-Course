@@ -9,7 +9,7 @@ In this tutorial, we will focus on how to read, manipulate and visualise phyloge
 ## Objectives
 * Get comfortable with `RStudio` and `R basics`, install the packages we'll use during the course, and load your very first phylogenetic tree.
 
-> If you already know R well, skim this fast and jump straight to [Section 4](#part-4-your-first-phylogenetic-tree-5-min). Everyone should run Section 2 (package installation) before the next practical.
+> If you already know R well, skim this fast and jump straight to [Section 4](#4.-working-with-phylogenetic-trees). Everyone should run Section 2 (package installation) before the next practical.
 
 ---
 
@@ -24,7 +24,7 @@ We start by opening **RStudio**. You should see four panels:
 | **Environment** (top-right) | Variables and objects you've created |
 | **Files / Plots / Packages / Help** (bottom-right) | File browser, plot viewer, package manager, documentation |
 
-Open the script `01-intro-to-R.R` that comes with this practical. We'll run it together — line by line, using `Ctrl+Enter` (Windows/Linux) or `Cmd+Enter` (Mac) to send a line from the Source panel to the Console.
+Open the script `01-intro-to-R.R` that comes with this practical (in the Scripts folder). We'll run it together.
 
 ---
 
