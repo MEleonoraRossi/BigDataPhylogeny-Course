@@ -21,14 +21,14 @@ By the end of this practical you'll be able to:
 * Convert real-world bioinformatics output (OrthoFinder) into CAFE5's required input format, a routine but essential reformatting skill.
 * Run CAFE5 and interpret its core output: the global λ, and which gene families are significantly rapidly evolving.
 * Identify, for at least one gene family, on which branch(es) of the tree expansion or contraction is inferred to have happened.
-* **Map CAFE5's results back onto the phylogeny and produce a publication-style figure of gene family size evolution.**
+* Map CAFE5's results back onto the phylogeny and produce a figure of gene family size evolution.
 
 ### Datasets and software
 
 For this practical you'll need to use the following software (already installed in the server):
 * [CAFE v5.1.0.](https://anaconda.org/channels/bioconda/packages/cafe/overview)
 * [biopython](https://anaconda.org/channels/conda-forge/packages/biopython/overview)
-* R, with the packages `ape`, `ggtree`, `ggplot2`, and `tidytree` (for Part 2, visualization)
+* R, with the packages `ape`, `ggtree`, `ggplot2`, and `tidytree` (for Section 2, visualisation)
 
 We'll be using the following datasets:
 * `cafe_input.tsv` — this corresponds to the 'Orthogroups.GeneCount.tsv' reformatted for CAFE5 (we already prepared it for you).
