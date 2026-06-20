@@ -132,6 +132,7 @@ There are two main repositories:
 install.packages("ape")
 install.packages("phytools")
 install.packages("ggplot2")
+install.packages("tidytree")
 install.packages("BAMMtools")
 ```
 
@@ -162,6 +163,7 @@ library(ape)
 library(ggtree)
 library(phytools)
 library(ggplot2)
+library(tidytree)
 ```
 
 Packages in R are collections of functions.
@@ -180,6 +182,7 @@ If any of these throws an error, re-run the matching `install.packages()` / `Bio
 | `ggtree` | Publication-quality tree plotting using `ggplot2`'s "grammar of graphics" | Bioconductor |
 | `phytools` | Comparative methods — ancestral state reconstruction, trait evolution models, tree manipulation | CRAN |
 | `ggplot2` | General-purpose plotting, used under the hood by `ggtree` | CRAN |
+| `tidytree` | A Tidy Tool for Phylogenetic Tree Data Manipulation | CRAN |
 | `BAMMtools` | Analysis and Visualization of Macroevolutionary Dynamics on Phylogenetic Trees | CRAN |
 
 You'll probably meet a few more specialised packages (e.g. `phangorn`, `treeio`, `caper`) later in the course as needed (same install pattern applies).
@@ -371,7 +374,7 @@ This tutorial provides only the basic tools to work with phylogenetic trees in R
 By now you should have:
 
 - [ ] Run basic R commands (arithmetic, variables, vectors, data frames)
-- [ ] Installed `ape`, `phytools`, `ggplot2`, `BAMMtools` (CRAN) and `ggtree` (Bioconductor)
+- [ ] Installed `ape`, `phytools`, `ggplot2`, `tidytree`, `BAMMtools` (CRAN) and `ggtree` (Bioconductor)
 - [ ] Loaded all four with `library()` without errors
 - [ ] Simulated and plotted your first `phylo` tree object
 
