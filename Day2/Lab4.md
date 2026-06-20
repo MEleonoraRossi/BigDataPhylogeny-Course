@@ -217,11 +217,9 @@ if (!require(remotes)){
 remotes::install_github("evo-palaeo/treesurgeon")
 library(treesurgeon)
 
-#set the working directory appropriately where you have the matrix and the tree
-setwd(path-to-your-folder)
 ###load matrix
 matrix <- read.csv("shell_matrix.csv", row.names = 1)
-tp <- get_tip_priors(matrix)
+tp <- get_tip_priors(matrix) #function to select the states for each tip (species)
 names(tp) <- colnames(matrix)
 tree <- read.tree("Mollusca_LGC60_BL_rooted.tre")
 
@@ -232,6 +230,7 @@ tree <- read.tree("Mollusca_LGC60_BL_rooted.tre")
 #We have two characters. Shell presence/absence (2 states) and type of shell (5 states)
 ?get_index_matrix
 get_index_matrix( states = 2, model = "ER", ordered = T) #with ER model you can see that we can either have state 1 to 2 or state 2 to 1
+get_index_matrix( states = 2, model = "ARD", ordered = T)
 
 #matrices for character 2 with 5 states
 get_index_matrix( states = 5, model = "ASYM", ordered = T)
@@ -244,17 +243,32 @@ fitERch1 <- fitMk(tree, x = tp$ch1_shell_abs0_pres1, model = "ER", pi="fitzjohn"
 print(fitERch1)
 ancER <-ancr(fitERch1)
 plot(ancER)
-#What does the plot tell you?
+#What does the plot tell you? 1 = state 0 = shell absence;  2 = state 1 = shell presence
 
-#Now let's do it for the type of shell
-fitARD <- fitMk(tree, x = tp$ch2_shelltype_0noshell_1external_2valves_3internal_4plates, model = "ARD", pi="fitzjohn" )
-print(fitARD)
-ancARD <-ancr(fitARD)
-plot(ancARD)
 
+#Now let's do it for the type of shell. We need to do it for each type of matrix
+#Equal rates
 fitERch2 <- fitMk(tree, x = tp$ch2_shelltype_0noshell_1external_2valves_3internal_4plates, model = "ER", pi="fitzjohn" )
 print(fitERch2)
 ancERch2 <-ancr(fitERch2)
-plot(ancERch2)
-```
+pp <- plot(ancERch2)
 
+#All rates different (ARD)
+fitARDch2 <- fitMk(tree, x = tp$ch2_shelltype_0noshell_1external_2valves_3internal_4plates, model = "ARD", pi="fitzjohn" )
+print(fitARDch2)
+ancARD <-ancr(fitARDch2)
+plot(ancARD)
+#Symmetrical rates. Based on the previous lines, could you repeat the estimation for symmetrical and asymmetrical rates?
+
+
+#Asymmetrical rates
+
+
+#How do we choose the model? we need to calculate the likelihood
+AIC(fitERch2)
+AIC(fitARDch2)
+
+##repeat this for all models and then evalutate AIC
+##Based on the AIC, which is the best model for our character estimation? What type of shell did the LCA of molluscs have? 
+```
+Well done! Now you know when the LCA of molluscs diverged and their shell evolution!
