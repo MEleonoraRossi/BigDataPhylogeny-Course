@@ -520,18 +520,40 @@ The paralogs from the same species cluster tightly together as **sister branches
 ---
 
 ## 8.4 Run PhyloPyPruner
-
+First, create a folder where you will put all the alignments and tree files.
 In your terminal:
 
 ```bash
 cd path/to/lab3_data
 
-phylopypruner --msa OG0001135.fasta \
-              --tree OG0001135.treefile \
-              --output OG0001135_pruned \
+phylopypruner --dir PpP/ \
+              --min-len 50 \
+              --trim-lb 5 \
+              --min-taxa 10 \
+              --min-otu-occupancy 0.1 \
+              --min-gene-occupancy 0.1 \
               --mask pdist \
-              --prune MI
+              --prune MI \
+              --threads 4
 ```
+
+> --dir PpP/ - Directory containing the input alignments and trees.
+> --min-len 50 - Minimum sequence length after filtering (sequences shorter than 50 amino acids/nucleotides are removed).
+> --trim-lb 5 - Removes sequences with excessively long branches. The value is a multiplicative factor with respect to the distribution of branch lengths. The lower the value, the more aggressive the filtering and the more divergent sequences are removed. A value of 5 is relatively conservative.
+> --prune MI - Ortholog pruning method. MI = Maximum Inclusion. When there are multiple copies of the same species in a tree:
+
+>   SpeciesA_copy1
+>   SpeciesA_copy2
+>   SpeciesB
+>   SpeciesC
+
+> `PhyloPyPruner` tries to preserve the largest possible subset of species while maintaining an acceptable orthology relationship. It is probably the most widely used method for transcriptomic data.
+> --min-taxa 10 - Minimum number of species present in a gene for this gene to be conserved.
+> --min-otu-occupancy 0.1 - Minimum occupancy per species (OTU). A species must be present in at least 10% of the final genes.
+> --min-gene-occupancy 0.1 - Minimum occupancy per gene. A gene must contain at least 10% of the final species.
+> --threads 4 - Uses 4 CPU cores.
+> --mask pdist - Filtering of divergent sequences using pairwise distance. PhyloPyPruner calculates the distances between sequences in each orthogroup and detects abnormally divergent sequences.
+
 
 **What these options do:**
 
