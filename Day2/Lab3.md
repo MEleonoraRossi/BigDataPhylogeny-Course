@@ -538,22 +538,31 @@ phylopypruner --dir PpP/ \
 ```
 
 > --dir PpP/ - Directory containing the input alignments and trees.
+> 
 > --min-len 50 - Minimum sequence length after filtering (sequences shorter than 50 amino acids/nucleotides are removed).
+> 
 > --trim-lb 5 - Removes sequences with excessively long branches. The value is a multiplicative factor with respect to the distribution of branch lengths. The lower the value, the more aggressive the filtering and the more divergent sequences are removed. A value of 5 is relatively conservative.
+> 
 > --prune MI - Ortholog pruning method. MI = Maximum Inclusion. When there are multiple copies of the same species in a tree:
-
+> 
 >   SpeciesA_copy1
 >   SpeciesA_copy2
 >   SpeciesB
 >   SpeciesC
-
+> 
 > `PhyloPyPruner` tries to preserve the largest possible subset of species while maintaining an acceptable orthology relationship. It is probably the most widely used method for transcriptomic data.
+> 
 > --min-taxa 10 - Minimum number of species present in a gene for this gene to be conserved.
+> 
 > --min-otu-occupancy 0.1 - Minimum occupancy per species (OTU). A species must be present in at least 10% of the final genes.
+> 
 > --min-gene-occupancy 0.1 - Minimum occupancy per gene. A gene must contain at least 10% of the final species.
+> 
 > --threads 4 - Uses 4 CPU cores.
+> 
 > --mask pdist - Filtering of divergent sequences using pairwise distance. PhyloPyPruner calculates the distances between sequences in each orthogroup and detects abnormally divergent sequences.
 
+* In this [tutorial](https://gitlab.com/fethalen/phylopypruner/-/wikis/tutorial#phylopypruner-tutorial) you can find much more options.
 
 **What these options do:**
 
