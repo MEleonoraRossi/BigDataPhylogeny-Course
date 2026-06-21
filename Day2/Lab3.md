@@ -466,12 +466,7 @@ If you concatenate or build a tree from sequences that include undetected paralo
 
 ## 8.1 The dataset
 
-For this exercise, we'll use a couple of pre-selected orthogroups from the OrthoFinder output: **`OG0001135`** and **`OG0001370`**.
-
-Files provided:
-
-- `OG0001135.fasta` protein sequences
-- `OG0001370.fasta` protein sequences
+For this exercise, we'll use some pre-selected orthogroups from the OrthoFinder output. You'll find them in the folder `Data/Orthogroups with paralogs/`.
 
 Look at the FASTA headers:
 
