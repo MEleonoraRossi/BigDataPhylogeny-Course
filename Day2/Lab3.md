@@ -230,7 +230,7 @@ tracecomp -x 1000 Mollusca_catpoisson_chain1 Mollusca_catpoisson_chain2
 #statalpha           371		0.0763524
 
   ```
-ℹ  Of course, we have run the BI for you, you can check the results by copying the files from 
+ℹ  Of course, we have run the BI for you. You can check the results by copying the files folder for this practical. 
 
 ---
 
@@ -262,18 +262,20 @@ tracecomp -x 1000 Mollusca_catpoisson_chain1 Mollusca_catpoisson_chain2
   ```
   *This is the 50% majority-rule consensus from the bootstrap replicates, with support values on branches.*
 
-  * Build a strict consensus from multiple tree files.
+  * You can build a strict consensus from multiple tree files, for instance, from a MrBayes run or MCMC samples. IQ-Tree can be used for this purpose, although there are other alternative software.
 
   ```bash
-  iqtree -con -t ml_tree.treefile --prefix strict_con
+  iqtree -con -t bi_trees.tre --prefix strict_con
   ```
   *A strict consensus retains only clades present in ALL trees.*
 
-  * Extract bootstrap trees for inspection.
+  * Extract bootstrap trees for inspection. Some comparative genomics programs, such as `ALERax` or `ALE`, require the result of the bootstrap search to validate the DTL events that occurred in a gene family. For this purpose, when calculating gene trees for use with these programs, the `--wbt` flag must be added, so that the bootstrap replicate information will be preserved.
 
   ```bash
-  iqtree -s chloroplast_aln.fasta -m GTR+F+I+G4 -B 1000 --wbt --prefix ml_tree_bt
-  # --wbt writes the full set of bootstrap trees to ml_tree_bt.ufboot.
+  for f in *.fasta; do
+  iqtree -s $f -m TESTMERGE -B 1000 --wbt --prefix gene_tree_bt;
+  done
+  # --wbt writes the full set of bootstrap trees to gene_tree_bt.ufboot.
   ```
 
   *TIP*
