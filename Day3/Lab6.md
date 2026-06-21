@@ -1,14 +1,9 @@
-# Lab 6 — Reconciling Gene and Species Trees: DTL with GeneRax, Ancestral Sequence Reconstruction, and Comparing Evolutionary Scenarios
-
-**Course:** Big Data Phylogeny & Comparative Genomics
-**Duration:** 1h45
-**Tools:** GeneRax, RAxML-NG, MAFFT
-
+# Reconciling Gene and Species Trees: DTL, Ancestral Sequence Reconstruction (ASR), and Comparing Evolutionary Scenarios
 ## 0. Before you start: what is this dataset?
 
-Today's dataset is a 20-species clade of molluscs (plus one outgroup), built on the real topology published in Chen et al.'s genome-based mollusc phylogeny in *Science* (2025): clams, snails, chitons, aplacophorans, and cephalopods, all related exactly as that study reconstructed them. The protein sequences themselves are simulated, not real genomic data — but the tree shape and the branch pattern you'll work with are taken from a real, peer-reviewed phylogeny rather than an arbitrary random tree, so the relationships you'll be reasoning about today (who is sister to whom, how deep the cephalopod radiation is, where the root sits) are biologically meaningful.
+Following previous practicals, today's dataset is a 20-species clade of molluscs (plus one outgroup), built on the real topology published in Chen et al.'s genome-based mollusc phylogeny in [*Science* (2025)](https://www.science.org/doi/10.1126/science.ads0215): clams, snails, chitons, aplacophorans, and cephalopods, all related exactly as that study reconstructed them. The protein sequences for this practical are simulated, not real genomic data, but the tree shape and the branch pattern you'll work with are taken from a real, peer-reviewed phylogeny rather than an arbitrary random tree, so the relationships you'll be reasoning about today (who is sister to whom, how deep the cephalopod radiation is, where the root sits) are biologically meaningful.
 
-Two of the six core genes were also used as the starting point for two **constructed teaching families** (Section 1.3): one with an engineered duplication and loss, one with an engineered horizontal transfer. You are not discovering unknown biology in those two families — you already know, from this handout, exactly what was inserted into them. The point of working with a "known answer" gene family first is one of the most standard sanity checks in this kind of analysis: before trusting a reconciliation method on real, unknown data, you want to see it correctly recover a case where the right answer is known in advance.
+Two of the six core genes were also used as the starting point for two **constructed teaching families** (Section 1.3): one with an engineered duplication and loss, one with an engineered horizontal transfer. You are not discovering unknown biology in those two families, you already know, from this handout, exactly what was inserted into them. The point of working with a "known answer" gene family first is one of the most standard sanity checks in this kind of analysis: before trusting a reconciliation method on real, unknown data, you want to see it correctly recover a case where the right answer is known in advance.
 
 ## 1. Data overview
 
