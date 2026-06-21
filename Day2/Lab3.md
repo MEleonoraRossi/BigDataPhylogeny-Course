@@ -466,7 +466,7 @@ If you concatenate or build a tree from sequences that include undetected paralo
 
 ## 8.1 The dataset
 
-For this exercise, we'll use a couple of pre-selected orthogroups from the OrthoFinder output: **`OG0001135`** and **ÒG0001370`**.
+For this exercise, we'll use a couple of pre-selected orthogroups from the OrthoFinder output: **`OG0001135`** and **`OG0001370`**.
 
 Files provided:
 
@@ -476,27 +476,26 @@ Files provided:
 Look at the FASTA headers:
 
 ```
->Lottia_gigantea|A0ABT3E9M6
->Lottia_gigantea|A0ABT3EDP3
->Octopus_vulgaris|Q8DWU9
->Octopus_vulgaris|Q8DX40
->Octopus_vulgaris|Q8DX66
+>S_philippinensis|A0ABT3E9M6
+>S_philippinensis|A0ABT3EDP3
+>V_penis|A0A0H3MX54
+>O_vulgaris|Q8DWU9
+>O_vulgaris|Q8DX40
+>O_vulgaris|Q8DX66
 ...
 ```
 
-Notice the format: **`Species|AccessionID`**. This is required (PhyloPyPruner uses the part before the `|` as the **OTU** (operational taxonomic unit / species) and needs it to match exactly between the FASTA and the Newick tree file.)
+Notice the format: **`Species|AccessionID`**. This is required (PhyloPyPruner uses the part before the `|` as the **OTU** (operational taxonomic unit / species) and needs it to match exactly between the FASTA and the Newick tree file).
 
 **Question:** 
-1. Which species have more than one sequence here? What might that mean biologically?
+- Which species have more than one sequence here? What might that mean biologically?
 
-*(Answer: `Lottia_gigantea`, `Crassostrea_gigas`, `Octopus_vulgaris` (×3), `Acanthopleura_granulata`, and `Neopilina_galatheae` all have 2-3 sequences — these are our candidate paralogs.)*
 
 ## 8.2 Alignment and tree inference
-In order to apply PhyloPyPruner, we need to align orthogroup sequences and then infer the gene trees. The program takes one or more multiple sequence 
-alignments (MSAs) and corresponding trees as input. The alignments should be in `Fasta` format and trees in `Newick` format. The name should be the same for each corresponding alignment and tree file.
+In order to apply [PhyloPyPruner](https://gitlab.com/fethalen/phylopypruner/-/wikis/tutorial#phylopypruner-tutorial), we need to align orthogroup sequences and then infer the gene trees. The program takes one or more multiple sequence alignments (MSAs) and corresponding trees as input. The alignments should be in `Fasta` format and trees in `Newick` format. The name should be the same for each corresponding alignment and tree file.
 
 > For this exercise we already provide you with the correct headers, but you should keep in mind that **the format is very important** for everything to work smoothly with `PhyloPyPruner`.
-> With the sequence files, you will need to generate the alignment, trim it, and infer the gene trees with ML in the same way you did before.
+> We provide the alignment files (MSA), you will need to infer the gene trees with ML in the same way you did before.
 
 ## 8.3. Look at the tree first
 
