@@ -1,4 +1,4 @@
-# Reconciling Gene and Species Trees: DTL, Ancestral Sequence Reconstruction (ASR), and Comparing Evolutionary Scenarios
+# Reconciling Gene and Species Trees: DTL & Ancestral Sequence Reconstruction (ASR)
 ## 0. Before you start: what is this dataset?
 
 Following previous practicals, today's dataset is a 20-species clade of molluscs (plus one outgroup), built on the real topology published in Chen et al.'s genome-based mollusc phylogeny in [*Science* (2025)](https://www.science.org/doi/10.1126/science.ads0215): clams, snails, chitons, aplacophorans, and cephalopods, all related exactly as that study reconstructed them. The protein sequences for this practical are simulated, not real genomic data, but the tree shape and the branch pattern you'll work with are taken from a real, peer-reviewed phylogeny rather than an arbitrary random tree, so the relationships you'll be reasoning about today (who is sister to whom, how deep the cephalopod radiation is, where the root sits) are biologically meaningful.
@@ -63,8 +63,9 @@ Because the core gene set has no real duplications, transfers, or losses to find
 
 You already know the right answer for both families. Today's exercise is to check whether GeneRax recovers it.
 
-## 2. DTL reconciliation with GeneRax 
+---
 
+## 2. DTL reconciliation with GeneRax 
 ### 2.1 What problem are we solving?
 
 A gene tree built from a sequence alignment does not always have the same shape as the species tree. There are several reasons this can happen: a gene was duplicated at some point, so today's genomes carry two or more copies that have since evolved independently (duplication, D); a gene copy was lost in some lineages (loss, L); or a gene moved horizontally between two lineages that are not directly related by descent (horizontal transfer, T). "Reconciliation" is the process of explaining the differences between a gene tree and a species tree as a minimal or most-likely combination of speciation, duplication, loss, and transfer events.
@@ -99,7 +100,7 @@ Each run produces a `results/<run_name>/reconciliations/` folder containing, for
 - `<family>_speciesEventCounts.txt` — a table of how many speciations, duplications, losses, and transfers happened on each branch of the species tree.
 - `<family>_transfers.txt` — for every inferred transfer, which species was the donor and which was the receiver.
 
-### 3.4 Step 3 — Read the results
+### 2.4 Read the results
 
 Raw GeneRax output is not very readable at first glance, so a small helper script highlights the branches where something other than plain speciation happened:
 
@@ -110,12 +111,11 @@ python3 scripts/summarize_dtl.py results/engineered_UndatedDTL/reconciliations/F
 ```
 
 **Questions to answer (write down your reasoning, not just the numbers):**
+- For the baseline gene set (RS7, SSRP, TRMD, SCPA, RSMA), how many duplication, loss, and transfer events did GeneRax infer in total, across all five families? Is this what you expected, given what you read in Section 1.2? Why?
+- For `FAMILY_A_DUP_LOSS`, which branch of the species tree shows a duplication event? Does it match where we said we inserted one (the branch leading to N14, the cephalopod ancestor)? Which branch shows the loss?
+- For `FAMILY_B_HGT` under the `UndatedDTL` model, is there a transfer event, and if so, between which two species/branches? Does it match the *Octopus vulgaris* → *Lingula anatina* transfer we engineered?
 
-1. For the baseline gene set (RS7, SSRP, TRMD, SCPA, RSMA), how many duplication, loss, and transfer events did GeneRax infer in total, across all five families? Is this what you expected, given what you read in Section 1.2? Why?
-2. For `FAMILY_A_DUP_LOSS`, which branch of the species tree shows a duplication event? Does it match where we said we inserted one (the branch leading to N14, the cephalopod ancestor)? Which branch shows the loss?
-3. For `FAMILY_B_HGT` under the `UndatedDTL` model, is there a transfer event, and if so, between which two species/branches? Does it match the *Octopus vulgaris* → *Lingula anatina* transfer we engineered?
-
-### 3.5 Comparing evolutionary scenarios: DTL vs DL-only
+### 2.5 Comparing evolutionary scenarios: DTL vs DL-only
 
 This is the heart of today's "comparing evolutionary scenarios" exercise. `FAMILY_B_HGT` was reconciled twice: once allowing transfers (`results/engineered_UndatedDTL`) and once forbidding them (`results/engineered_UndatedDL`). Compare the two:
 
@@ -126,11 +126,11 @@ python3 scripts/summarize_dtl.py results/engineered_UndatedDL/reconciliations/FA
 
 **Questions:**
 
-1. When transfers are not allowed, how does GeneRax explain the anomalous position of *Lingula anatina* in this gene family instead? Look at the duplication and loss counts: did they go up?
-2. Which of the two scenarios (DTL vs DL-only) is the more biologically parsimonious or plausible explanation for what we know was engineered into this family? Which one do you think a researcher analysing *real*, unknown data should prefer, and on what grounds (model fit / likelihood, not just "fewer events")?
-3. This is the general lesson behind "comparing evolutionary scenarios": the same gene tree and the same species tree can be reconciled under different modelling assumptions, and those assumptions can change the entire biological story you would tell about a gene family. Can you think of a real biological situation (not necessarily molluscs) where assuming "no horizontal transfer is possible" would lead a researcher to a wrong conclusion about gene duplication history?
+- When transfers are not allowed, how does GeneRax explain the anomalous position of *Lingula anatina* in this gene family instead? Look at the duplication and loss counts: did they go up?
+- Which of the two scenarios (DTL vs DL-only) is the more biologically parsimonious or plausible explanation for what we know was engineered into this family? Which one do you think a researcher analysing *real*, unknown data should prefer, and on what grounds (model fit / likelihood, not just "fewer events")?
+- This is the general lesson behind "comparing evolutionary scenarios": the same gene tree and the same species tree can be reconciled under different modelling assumptions, and those assumptions can change the entire biological story you would tell about a gene family. Can you think of a real biological situation (not necessarily molluscs) where assuming "no horizontal transfer is possible" would lead a researcher to a wrong conclusion about gene duplication history?
 
-### 3.6 (Optional, if time allows) Look at the reconciled tree picture
+### 2.6 (Optional, if time allows) Look at the reconciled tree picture
 
 GeneRax's `.xml` output can be turned into a picture showing the gene tree embedded inside the species tree, with little symbols marking speciations (circles), duplications (squares), losses (crosses), and transfers (arrows). The simplest way to get this picture without installing anything is the free online viewer:
 
@@ -138,17 +138,19 @@ GeneRax's `.xml` output can be turned into a picture showing the gene tree embed
 
 Upload `results/engineered_UndatedDTL/reconciliations/FAMILY_B_HGT_reconciliated.xml` and look at where the transfer arrow points. (If your instructor has installed the ThirdKind command-line tool locally, `thirdkind -f <file>.xml -b` produces the same picture as an `.svg` file.)
 
-## 4. Part 2 — Ancestral Sequence Reconstruction with RAxML-NG (around 40 minutes)
+---
 
-### 4.1 What problem are we solving?
+## 3. Ancestral Sequence Reconstruction with RAxML-NG 
+
+### 3.1 What problem are we solving?
 
 Given an alignment of present-day sequences and a tree relating them, can we infer what the sequence looked like at an ancestral node — for example, at the common ancestor of all 20 species in our tree (node N1), or at the ancestor of just the cephalopods (node N14)? This is Ancestral Sequence Reconstruction (ASR). RAxML-NG's `--ancestral` mode computes, for every internal node of a fixed tree, the marginal probability of each possible amino acid at every alignment column, then reports both the full probability table and a single best-guess sequence (the amino acid with the highest probability at each site).
 
-### 4.2 Why RS9?
+### 3.2 Why RS9?
 
 We picked the RS9 gene (30S ribosomal protein S9) for this exercise because all 20 species have exactly the same sequence length (130 amino acids) with no insertions or deletions anywhere in the alignment. That means every column of the alignment is unambiguously homologous across all 20 species, and every one of the 130 reconstructed ancestral states corresponds to one single, unambiguous position. This lets you focus entirely on what ASR means and how to read its output, without first having to reason about gaps and indel placement, which is its own, harder topic.
 
-### 4.3 Run the reconstruction
+### 3.3 Run the reconstruction
 
 ```bash
 bash scripts/step3_asr.sh
@@ -170,7 +172,7 @@ Three output files matter:
 - `results/ASR_RS9.raxml.ancestralProbs` — for every site and every internal node, the full posterior probability of each of the 20 amino acids (so you can see *how confident* the reconstruction is, not just the single best guess).
 - `results/ASR_RS9.raxml.ancestralTree` — the tree with the node labels used in the two files above (should match `species_tree.nwk` exactly).
 
-### 4.4 Reading the output
+### 3.4 Reading the output
 
 Open `results/ASR_RS9.raxml.ancestralStates` in a text editor. Each line has a node name followed by a 130-character amino-acid sequence: the single most likely ancestral sequence for that node.
 
@@ -180,11 +182,13 @@ Open `results/ASR_RS9.raxml.ancestralStates` in a text editor. Each line has a n
 2. Pick any one of the 20 present-day species and compare its real sequence (from the alignment) to the reconstructed sequence at its immediate ancestral node (its parent in the species tree). How many differences are there? What does a small number of differences tell you about how conserved this gene is along that particular branch?
 3. Open `results/ASR_RS9.raxml.ancestralProbs` and find one site (column) where the probability is split fairly evenly between two amino acids (for example, no single amino acid has more than 60% posterior probability), versus a site where one amino acid has more than 99% probability. What does the difference between these two situations tell you about how much we should trust the single "best guess" sequence reported in `.ancestralStates`, site by site?
 
-### 4.5 (Optional, going further) ASR on a gene tree instead of the species tree
+### 3.5 (Optional, going further) ASR on a gene tree instead of the species tree
 
 Everything above used the fixed species tree as the backbone for ASR — a reasonable simplification for a first exercise, because we know this gene has no duplications or losses (Section 1.2), so its gene tree and the species tree should have essentially the same shape anyway. In a real research project working with a larger, messier gene family, you would normally use the gene family's own ML gene tree (for example, the one GeneRax inferred for you in Part 1) for the ASR step instead, since that is the tree that actually describes the gene's history, not the species' history. If you have time, try rerunning Section 4.3 using one of the gene trees produced by GeneRax in Part 1 (look inside `results/baseline_UndatedDTL/` for an inferred gene tree file) instead of `species_tree.nwk`, and see whether your reconstructed ancestral sequences change.
 
-## 5. Wrap-up discussion (10 minutes)
+---
+
+## 4. Wrap-up discussion
 
 Be ready to discuss as a class:
 
@@ -192,34 +196,3 @@ Be ready to discuss as a class:
 - In Part 2, ASR gave you one most-likely sequence per ancestral node, but also a full probability distribution at every site. When would a researcher care about the second part more than the first?
 - Connecting the two halves of the lab: if a gene family had real, undetected duplications, why would that be a problem for an ASR analysis that (incorrectly) assumed the gene tree was identical to the species tree?
 
-## 6. File reference
-
-```
-lab6/
-├── environment.yml                       conda environment definition
-├── data/
-│   ├── species_tree/
-│   │   └── species_tree.nwk              fixed 20-taxon species tree, labelled internal nodes N1-N19
-│   ├── core_gene_set/                    6 single-copy orthologues (Section 1.2)
-│   │   ├── RS9_OG0000545.fasta           used for ASR (Part 2)
-│   │   ├── RS7_OG0000433.fasta
-│   │   ├── SSRP_OG0000396.fasta
-│   │   ├── TRMD_OG0000263.fasta
-│   │   ├── SCPA_OG0000226.fasta          base gene for FAMILY_A_DUP_LOSS
-│   │   ├── RSMA_OG0000272.fasta          base gene for FAMILY_B_HGT
-│   │   ├── families_baseline.txt         GeneRax families file for this set
-│   │   └── aligned/                      created by step1_align.sh
-│   └── dtl_engineered/                   2 constructed DTL teaching families (Section 1.3)
-│       ├── FAMILY_A_DUP_LOSS.fasta
-│       ├── FAMILY_A_DUP_LOSS.link        gene-to-species mapping (needed: >1 gene/species here)
-│       ├── FAMILY_B_HGT.fasta
-│       ├── families_engineered.txt       GeneRax families file for this set
-│       └── aligned/                      created by step1_align.sh
-├── scripts/
-│   ├── build_dtl_families.py             documents + reproduces how FAMILY_A/B were constructed
-│   ├── step1_align.sh                    Part 1, Step 1
-│   ├── step2_generax.sh                  Part 1, Step 2 (3 GeneRax runs)
-│   ├── step3_asr.sh                      Part 2 (RAxML-NG --ancestral)
-│   └── summarize_dtl.py                  readable summary of GeneRax event-count files
-└── results/                              created as you run the scripts above
-```
