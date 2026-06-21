@@ -9,15 +9,18 @@ Two of the six core genes were also used as the starting point for two **constru
 
 ### 1.1 The species tree
 
-`data/species_tree/species_tree.nwk` contains a fixed, rooted, bifurcating tree of 20 species, with *Lingula anatina* (a brachiopod, not a mollusc) as the outgroup — the same outgroup choice used in the source study. Internal nodes are pre-labelled N1 to N19 so you can refer to specific ancestors by name (for example, "the ancestor of the cephalopods is N14").
+`data/lab6/species_tree.nwk` contains a fixed, rooted, bifurcating tree of 20 species, with *Lingula anatina* (a brachiopod, not a mollusc) as the outgroup, the same outgroup choice used in the source study. Internal nodes are pre-labelled N1 to N19 so you can refer to specific ancestors by name (for example, "the ancestor of the cephalopods is N14").
 
 You can view the tree directly in the terminal at any point with:
 
 ```bash
+conda activate lab6
+mamba install -c bioconda newick_utils  ##we didn't preinstall this package but it is pretty useful for tree visualisation and very easy to install
+
 nw_display data/species_tree/species_tree.nwk
 ```
 
-or open it in any Newick-compatible tree viewer (FigTree, iTOL, ETE3) for a graphical view.
+or open it in any Newick-compatible tree viewer (FigTree, iTOL) for a graphical view.
 
 A quick guide to the 20 species and where they sit on the tree:
 
