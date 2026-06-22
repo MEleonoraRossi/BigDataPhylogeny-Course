@@ -221,7 +221,7 @@ Open `results/ASR_RS9.raxml.ancestralStates` in a text editor. Each line has a n
 
 ### 3.5 ASR on a gene tree instead of the species tree
 
-Everything above used the fixed species tree as the backbone for ASR, because we know this gene has no duplications or losses (Section 1.2), so its gene tree and the species tree should have essentially the same shape anyway. In a real research project working with a larger, messier gene family, you would normally use the gene family's own ML gene tree (for example, the one GeneRax inferred for you in section 1) for the ASR step instead, since that is the tree that actually describes the gene's history, not the species' history. If you have time, try rerunning Section 4.3 using one of the gene trees produced by GeneRax in Part 1 (look inside `results/baseline_UndatedDTL/` for an inferred gene tree file) instead of `species_tree.nwk`, and see whether your reconstructed ancestral sequences change.
+Everything above used the fixed species tree as the backbone for ASR, because we know this gene has no duplications or losses (Section 1.2), so its gene tree and the species tree should have essentially the same shape anyway. In a real research project working with a larger, messier gene family, you would normally use the gene family's own ML gene tree (for example, the one GeneRax inferred for you in [section 2]() for the ASR step instead, since that is the tree that actually describes the gene's history, not the species' history. If you have time, try rerunning Section 4.3 using one of the gene trees produced by GeneRax in Part 1 (look inside `results/baseline_UndatedDTL/` for an inferred gene tree file) instead of `species_tree.nwk`, and see whether your reconstructed ancestral sequences change.
 
 ---
 
