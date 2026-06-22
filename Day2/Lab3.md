@@ -272,7 +272,7 @@ tracecomp -x 1000 Mollusca_catpoisson_chain1 Mollusca_catpoisson_chain2
   * Extract bootstrap trees for inspection. Some comparative genomics programs, such as `ALERax` or `ALE`, require the result of the bootstrap search to validate the DTL events that occurred in a gene family. For this purpose, when calculating gene trees for use with these programs, the `--wbtl` flag must be added, so that the bootstrap replicate information will be preserved.
 
   ```bash
-  for f in *.fasta; do
+  for f in *.fas; do
   iqtree -s $f -m TESTMERGE -B 1000 --wbtl -T AUTO;
   done
   # --wbt writes the full set of bootstrap trees to gene_tree_bt.ufboot.
