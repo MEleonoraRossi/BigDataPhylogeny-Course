@@ -221,7 +221,7 @@ Open `results/ASR_RS9.raxml.ancestralStates` in a text editor. Each line has a n
 
 ### 3.5 ASR on a gene tree instead of the species tree
 
-Everything above used the fixed species tree as the backbone for ASR, because we know this gene has no duplications or losses (Section 1.2), so its gene tree and the species tree should have essentially the same shape anyway. In a real research project working with a larger, messier gene family, you would normally use the gene family's own ML gene tree (for example, the one GeneRax inferred for you in [section 2]() for the ASR step instead, since that is the tree that actually describes the gene's history, not the species' history. If you have time, try rerunning Section 4.3 using one of the gene trees produced by GeneRax in Part 1 (look inside `results/baseline_UndatedDTL/` for an inferred gene tree file) instead of `species_tree.nwk`, and see whether your reconstructed ancestral sequences change.
+Everything above used the fixed species tree as the backbone for ASR, because we know this gene has no duplications or losses (Section 1.2), so its gene tree and the species tree should have essentially the same shape anyway. In a real research project working with a larger, messier gene family, you would normally use the gene family's own ML gene tree (for example, the one GeneRax inferred for you in [section 2](https://github.com/MEleonoraRossi/BigDataPhylogeny-Course/blob/main/Day3/Lab6.md#23-run-generax)) for the ASR step instead, since that is the tree that actually describes the gene's history, not the species' history. If you have time, try rerunning Section 3.3 using one of the gene trees produced by GeneRax in section 2 (look inside `results/baseline_UndatedDTL/` for an inferred gene tree file) instead of `data/asr/species_tree.nwk`, and see whether your reconstructed ancestral sequences change.
 
 ---
 
@@ -229,7 +229,7 @@ Everything above used the fixed species tree as the backbone for ASR, because we
 
 Be ready to discuss as a class:
 
-- In Part 1, what is the practical difference between "this gene family shows zero D/T/L events" and "this method correctly detected a known duplication and a known transfer"? Why did today's lab need both kinds of gene families to teach the topic properly?
-- In Part 2, ASR gave you one most-likely sequence per ancestral node, but also a full probability distribution at every site. When would a researcher care about the second part more than the first?
+- What is the practical difference between "this gene family shows zero D/T/L events" and "this method correctly detected a known duplication and a known transfer"? Why did today's lab need both kinds of gene families to teach the topic properly?
+- ASR gave you one most-likely sequence per ancestral node, but also a full probability distribution at every site. When would a researcher care about the second part more than the first?
 - Connecting the two halves of the lab: if a gene family had real, undetected duplications, why would that be a problem for an ASR analysis that (incorrectly) assumed the gene tree was identical to the species tree?
 
