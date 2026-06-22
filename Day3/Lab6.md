@@ -181,7 +181,7 @@ GeneRax's `.xml` output can be turned into a picture showing the gene tree embed
 
 ### 3.1 What problem are we solving?
 
-Given an alignment of present-day sequences and a tree relating them, can we infer what the sequence looked like at an ancestral node — for example, at the common ancestor of all 20 species in our tree (node N1), or at the ancestor of just the cephalopods (node N14)? This is Ancestral Sequence Reconstruction (ASR). RAxML-NG's `--ancestral` mode computes, for every internal node of a fixed tree, the marginal probability of each possible amino acid at every alignment column, then reports both the full probability table and a single best-guess sequence (the amino acid with the highest probability at each site).
+Given an alignment of present-day sequences and a tree relating them, can we infer what the sequence looked like at an ancestral node, for example, at the common ancestor of all 20 species in our tree (node N1), or at the ancestor of just the cephalopods (node N14)? This is **Ancestral Sequence Reconstruction (ASR)**. RAxML-NG's `--ancestral` mode computes, for every internal node of a fixed tree, the marginal probability of each possible amino acid at every alignment column, then reports both the full probability table and a single best-guess sequence (the amino acid with the highest probability at each site).
 
 ### 3.2 Why RS9?
 
@@ -190,7 +190,7 @@ We picked the RS9 gene (30S ribosomal protein S9) for this exercise because all 
 ### 3.3 Run the reconstruction
 
 ```bash
-bash scripts/step3_asr.sh
+bash scripts/asr.sh
 ```
 
 This runs:
