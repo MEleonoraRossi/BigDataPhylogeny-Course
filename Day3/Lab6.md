@@ -153,7 +153,7 @@ python3 scripts/summarize_dtl.py results/engineered_UndatedDTL/reconciliations/F
 
 ### 2.5 Comparing evolutionary scenarios: DTL vs DL-only
 
-This is the heart of today's "comparing evolutionary scenarios" exercise. `FAMILY_B_HGT` was reconciled twice: once allowing transfers (`results/engineered_UndatedDTL`) and once forbidding them (`results/engineered_UndatedDL`). Compare the two:
+`FAMILY_B_HGT` was reconciled twice: once allowing transfers (`results/engineered_UndatedDTL`) and once forbidding them (`results/engineered_UndatedDL`). Compare the two:
 
 ```bash
 python3 scripts/summarize_dtl.py results/engineered_UndatedDTL/reconciliations/FAMILY_B_HGT_speciesEventCounts.txt
@@ -168,11 +168,12 @@ python3 scripts/summarize_dtl.py results/engineered_UndatedDL/reconciliations/FA
 
 ### 2.6 (Optional, if time allows) Look at the reconciled tree picture
 
-GeneRax's `.xml` output can be turned into a picture showing the gene tree embedded inside the species tree, with little symbols marking speciations (circles), duplications (squares), losses (crosses), and transfers (arrows). The simplest way to get this picture without installing anything is the free online viewer:
+GeneRax's `.xml` output can be turned into a picture showing the gene tree embedded inside the species tree, with little symbols marking speciations (circles), duplications (squares), losses (crosses), and transfers (arrows). You can install `Notung`, that is a software java-dependent where you can reconcile your gene trees against the species trees:
 
-**https://thirdkind.univ-lyon1.fr/**
+**[Notung](https://amberjack.compbio.cs.cmu.edu/Notung/download.html#)**
 
-Upload `results/engineered_UndatedDTL/reconciliations/FAMILY_B_HGT_reconciliated.xml` and look at where the transfer arrow points. (If your instructor has installed the ThirdKind command-line tool locally, `thirdkind -f <file>.xml -b` produces the same picture as an `.svg` file.)
+<img width="1908" height="1010" alt="image" src="https://github.com/user-attachments/assets/8153069a-25c4-4ec3-a1a9-1faecf494601" />
+
 
 ---
 
