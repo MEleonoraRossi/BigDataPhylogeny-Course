@@ -5,7 +5,7 @@
 During the course we will use the command line for our exercises. The command line is a text-based interface used widely in bioinformatics to interact with computers.
 A bit of familiarity with the command line will help you greatly in our practical; however, here is a little refresher on the commands that are going to help you navigate folders, read files, and launch analyses.
 
-We start the tutorial in the Terminal. Open the Terminal on your machine. You'll likely see something like this
+Connect to the cluster as explained in the instruction by opening the Terminal on your machine. You'll likely see something like this
 ```sh
 (base) eleonora@mac ~ % 
 ```
@@ -45,13 +45,13 @@ The nested hierarchy of folders and files on your computer is called the filesys
 
 All directories are nested within a previous directory, and you can also have multiple directories in the same location, as you would have, for example, different folders in your Finder app. 
 
-To know where we are in the filesystem of our computer, we can type in the directory `pwd`, short for print working directory.
+To know where we are in the filesystem of our computer or HPC, we can type in the directory `pwd`, short for print working directory.
 
 ```sh
-(base) eleonora@mac Desktop % pwd
-/Users/eleonora/Desktop
+ubuntu@ip-172-31-15-77:~$ pwd
+/home/ubuntu
 ```
-`/Users/eleonora` is the pathway, and `Desktop` is the directory I am in. Each directory is separated by `/` symbol.
+`/home/ubuntu` is the pathway, and `ubuntu` is the directory I am in. Each directory is separated by `/` symbol.
 
 Let's say we want to create a new directory, normally we would do right click -> new. Here we use the command `mkdir` (make directory).
 
@@ -85,15 +85,20 @@ Ok now we have the basics to navigate the filesystem. Let's see how to work with
 
 ## Working with files
 
-Most times, we need to visualise the files. To do so, there are different commands we can use. `less` is very useful; it loads the file you want to visualise, and you can "scroll" the file by hitting the space bar or actually scrolling with the mouse. The advantage of `less` is that it loads in the memory temporarily only the section of the file you are looking at, meaning that it's handy to look at very large files. 
+If we want to know which files are present in the directory we would normally type`ls` or `ll`. If you do it know, in the new directory you have created most likely you will not see anything, sicne it's empty. 
+Let's create some files
+```sh
 
+touch empty_file
+```
+Most times, we need to visualise the files. To do so, there are different commands we can use. `less` is very useful; it loads the file you want to visualise, and you can "scroll" the file by hitting the space bar or actually scrolling with the mouse. The advantage of `less` is that it loads in the memory temporarily only the section of the file you are looking at, meaning that it's handy to look at very large files. 
+Type `less empty_file`. It will load and you would be able to look inside. The file is now empty so you cannot really see anything. Press `q` on your keyboard to exit the `less` command.
 
 Two other useful commands are `head` and `tail` 
 As the names might suggest, `head` shows you the first part of the file. With the flag `-n`, you can specify how many lines you want to see of the file. 
 E.g. if you type `head -n 30 <file-name>` you will visualise the first 30 lines of that file.
 
 A similar concept can be applied to `tail`, where it allows you to check the last part of the file. 
-What would you type to check the last 20 lines of the `chicken.fa` file?
 
 
 ## Editing files
@@ -101,9 +106,12 @@ What would you type to check the last 20 lines of the `chicken.fa` file?
 The are several text editors you can use to edit a file or a script. One of the easiest to use is `nano`. You can start edit the file by just typing the command and the name of the file you want to edit, or if you want to write a new file just type nano followd by the name you want to give to your file.
 
 ```
-nano <name-file>
+nano empty_file
 ```
 Once opened, you can move around with the cursor, write, paste, copy, etc, etc. Once done, you can ext `nano` with `ctrl + x`. If the file has been modified, `nano` will ask if you want to save it, and you say yes by typing `y`. The program will then quit, and you will find the file in the directory. 
+Try to write your name, save it and exit nano. 
+Type `less empty_file` again, can you see your name?
+
 
 ## Wildcards and Pattern Search
 
@@ -115,56 +123,61 @@ Common wildcards:
 - `?` → matches a single character
 - `[]` → matches one character from a set
 Here are some example of how you can use wildcards. You do not need to run them now.
-List all `.fasta` files:
 
-```bash
-ls *.fasta
+Let's create some empty files:
+```sh 
+touch carol.txt blah.txt example.png firstfile.txt number2file 
 ```
 
-Match files like `data1.csv` or `dataA.csv`:
+Now we can use the wildcard * to list only the files that begin with the letter b:
+```sh
 
-```bash
-ls data?.csv
+ubuntu@ip-172-31-15-77:~/Linux_tutorial$ ls b*
+blah.txt
+
 ```
+What if we wanted to list all the files that end with .txt?
 
-Match `sample1.fa`, `sample2.fa`, and `sample3.fa`:
-
-```bash
-ls sample[123].fa
+```sh
+username@bash:~/wildcards_test$ ls *.txt  
+carol.txt  blah.txt  firstfile.txt 
 ```
+We can use the * wildcard to move files for example
+```sh
+username@bash:~/wildcards_test$  mkdir images
+username@bash:~/wildcards_test$  mv *png images/
+username@bash:~/wildcards_test$  ls images/ 
+example.png
 
-Pattern searching inside files is commonly done with `grep`.
-
-Find lines containing the word “gene”:
-
-```bash
-grep "gene" annotations.gff
 ```
+The wildcard `?` represent a single character
+For example, it can be used to list all files whose second letter is a:
 
-Ignore uppercase/lowercase:
-
-```bash
-grep -i "atg" sequences.fa
+```sh
+username@bash:~/wildcards_test$ ls ?a*
+carol.txt
 ```
+In Unix there are many wildcards that can be used to manipulate data, if you want to dig deeper [here](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) you have a nice summary of all of them.
 
-Show line numbers:
-
-```bash
-grep -n "exon" genes.gff
+### Grep command
+Another great command that we can use is `grep`. 
+The command grep is used to search for patterns inside files, iterating over each line of it. 
+It is extremely useful if we want to check for a specific line or character in our files.
+E.g. 
+```sh
+grep "Best-fit model" <name-file>
 ```
+Here we are looking for the line "Best fit model" in a specific file, we could do the same action for multiple file including the * wildcard, for example if we have 30 log files from IQTree that all end with the same `.log` extention we coud run:
 
-Search for “ATPase” in all `.txt` files:
-
-```bash
-grep "ATPase" *.txt
+```sh
+grep "Best-fit model" *log
 ```
-Count how many sequences you have in a fasta file
+Another useful characteristic of grep is counting. 
+Let's say we have a fasta file and we want to count how many sequences we have we can do:
 
-```bash
-grep -c ">" *fasta
+```sh
+grep -c ">" file.fasta
 ```
-
----
 
 # Piping and Redirection
 
@@ -199,23 +212,15 @@ Count how many files are in the directory:
 ```bash
 ls | wc -l
 ```
-
-Show the first matching lines containing “gene”:
-
-```bash
-grep "gene" annotations.gff | head
+If we want to know all the commands we have run up until now we can use `history`, but let's say we want to search for a specific command.
+We could use history piped with grep like this:
+```sh
+history | grep touch
 ```
 
-Count FASTA sequences by counting headers:
+What does it show?
 
-```bash
-cat proteins.fa | grep ">" | wc -l
-```
-Or 
-```bash
-grep -c ">" proteins.fa 
-```
-## For Loop
+## For Loops
 
 the first practicals of the tutorial we will often use a for loop. This help us running the same command for all the files we need. 
 A for loop has normally this structure: for i in *.file ; do <command $i> ; done
