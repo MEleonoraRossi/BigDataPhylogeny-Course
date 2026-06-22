@@ -91,8 +91,44 @@ bash scripts/generax.sh
 This script runs three separate GeneRax jobs, all against the same fixed species tree (`data/species_tree/species_tree.nwk`):
 
 1. The **baseline** core gene set (RS7, SSRP, TRMD, SCPA, RSMA), under the full duplication+transfer+loss model (`UndatedDTL`).
+
+```bash
+generax \
+    --families data/core_gene_set/families_baseline.txt \
+    --species-tree "$SPECIES_TREE" \
+    --rec-model UndatedDTL \
+    --per-family-rates \
+    --reconcile \
+    --strategy SPR \
+    --prefix results/baseline_UndatedDTL
+```
+
 2. The **engineered** families, also under `UndatedDTL`.
+
+```bash
+generax \
+    --families data/dtl_engineered/families_engineered.txt \
+    --species-tree "$SPECIES_TREE" \
+    --rec-model UndatedDTL \
+    --per-family-rates \
+    --reconcile \
+    --strategy SPR \
+    --prefix results/engineered_UndatedDTL
+```
+
 3. The **engineered** families again, but under a more restrictive model that allows duplication and loss only, with no transfers (`UndatedDL`).
+
+```bash
+generax \
+    --families data/dtl_engineered/families_engineered.txt \
+    --species-tree "$SPECIES_TREE" \
+    --rec-model UndatedDL \
+    --per-family-rates \
+    --reconcile \
+    --strategy SPR \
+    --prefix results/engineered_UndatedDL
+```
+
 
 Each run produces a `results/<run_name>/reconciliations/` folder containing, for every gene family:
 
