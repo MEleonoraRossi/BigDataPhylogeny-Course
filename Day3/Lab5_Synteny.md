@@ -24,8 +24,9 @@ In this tutorial we are going to run DIAMOND to generate the all_vs_all output n
 
 
 ```bash
-cp -r /home/ubuntu/Share/mollusc_synteny/
+cp -r /home/ubuntu/Share/mollusc_synteny/ .
 cd mollusc_synteny
+conda activate synteny
 ```
 Here is the structure of the directory
 ```
@@ -33,7 +34,6 @@ mollusc_synteny/
 ├── data/        # downloaded genomes, proteomes, GFF
 ├── blast/       # all-vs-all DIAMOND/BLAST output
 ├── synteny/     # MCScanX input/output
-└── plots/       # final figures
 ```
 In data you will find the genomes we have selected for you: E.g.  `data/Cgigas.faa`, `data/Cgigas.gff` , and for the other two species  The `.faa` should have 20,000-40,000 protein sequences (`grep -c ">" data/Cgigas.faa`).
 

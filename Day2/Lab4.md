@@ -65,9 +65,11 @@ Look at the clock options and at the seq type.
 
 **MCMCTree control file**
 
-Copy the section below in a new file  with nano `nano mcmctree.ctl`. Save it and now you are ready to infer the prior.
+Copy the section below in the `Prior` directory. The command `cat` here is used to create the file called `mcmctree.ctl`. `EOF` stands for end of file, it's telling cat when to end writing. 
+You could normally use `nano` as well, but for now we are going to use cat. Just copy the entire block on the terminal and press enter.
 
 ```sh
+cat > mcmctree.ctl << 'EOF'
 seed = -1
 seqfile =  MCMCtree_mollusca.dummy.phy * alignment
 treefile =  MCMCtree_mollusca.rooted.calibration.nwk * tree with fossil calibration
@@ -87,9 +89,12 @@ burnin = 100000
 sampfreq = 100
 nsample = 20000
 
-```
+EOF
 
-Type:
+```
+If you type `ls` you should now see the `mcmctree.ctl` file, by typing `less mcmctree.ctl` you can check inside the file that everything is correct. 
+
+Now we are ready to infer the prior, from the same directory type:
 ```sh
 mcmctree mcmctree.ctl
 ```
@@ -97,7 +102,7 @@ It should take a couple of minutes, once it's done download the Figtree.tree fil
 
 ### Posterior distribution
 
-Go to the Posterior folder and look at the file inside. Now MCMCTree will have to take into consideration the Hessian matrix, we will specify `usedata = 2` for the approximate likelihood (this is the step that save us a lot of time with big genomics datasets.)
+Now move into the `Posterior` directory, and look at the file inside. Now MCMCTree will have to take into consideration the Hessian matrix, we will specify `usedata = 2` for the approximate likelihood (this is the step that save us a lot of time with big genomics datasets.)
 This time we will also specify the clock.
 It is good practice to run multiple chains (e.g. 5) with both clocks, meaning that you should run 5 chains specifying clock =2 for independent rates, and 5 chains specifying clock = 3 for correlated rates. 
 Due to time constrains we will only run one, but in the future, you would just need to change the clock flag and run it multiple times in different folders.
@@ -107,6 +112,7 @@ The global option (clock =1) is biologically unlikely to happen to species that 
 Ok now, once again copy the section below and save it in a new mcmctree.ctl file. We will use the independent rate clock (e.g clock = 2) and we will specify usedata = 2
 
 ```sh
+cat > mcmctree.ctl << 'EOF'
 seed = -1
 seqfile =  FcC_supermatrix.fas * alignment
 treefile =  MCMCtree_mollusca.rooted.calibration.nwk * tree with fossil calibration
@@ -126,14 +132,16 @@ burnin = 100000
 sampfreq = 100
 nsample = 20000
 
+EOF
 ```
 
 
-Type:
+And now we infer the posterior, type:
 ```sh
 mcmctree mcmctree.ctl
 ```
-The Posterior might take a while, have a little break!
+The Posterior might take a while (~10 min), have a little break!
+
 Once this is also done, please check the tree as you did with the Prior.
 Do you notice any difference in the time estimates? Once you check the difference move to the next section, where we will use Rstudio!
 
