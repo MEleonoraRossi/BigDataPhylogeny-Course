@@ -11,7 +11,7 @@ First we connect to the server as explained in the instruction.
 
 ```
 #Copy the proteomes folder in your own personal folder 
-cp /home/ubuntu/Share/Proteomes .
+cp -r /home/ubuntu/Share/Proteomes .
 ```
 
 These are the proteomes for the molluscs species we want to infer the phylogeny for.
@@ -26,7 +26,7 @@ To identify homologs among all the proteins, we will use [OrthoFinder](https://g
 First we need to activate the conda env with Orthofinder
 
 ```
-conda activate Orthofinder
+conda activate Orthofinder3
 ```
 This is a virtual environment, with different softwares installed that will help us running Orthofinder and all its dependencies.
 If you want to know more about conda you can have a look at the [cheat sheet here](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf).
