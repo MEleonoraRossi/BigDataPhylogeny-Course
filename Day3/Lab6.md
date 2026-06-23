@@ -15,7 +15,6 @@ You can view the tree directly in the terminal at any point with:
 
 ```bash
 conda activate lab6
-mamba install -c bioconda newick_utils  ##we didn't preinstall this package but it is pretty useful for tree visualisation and very easy to install
 
 nw_display Lab6/data/species_tree_rn.nwk
 ```
