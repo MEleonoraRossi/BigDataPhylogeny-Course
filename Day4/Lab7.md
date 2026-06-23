@@ -71,18 +71,30 @@ By the end of this session, you should be able to:
   ### 2.2 Running mPTP
   `mPTP` (**multi-rate Poisson Tree Processes**) requires an unrooted ML tree with branch lengths. We will use the COI alignment.
 
-  You have the data in the server, but if you want to practice, can use the script provided to fetch sequences from accession numbers, it is a good practice.
+  You have the data in the server for genes 16S and h3, but if you want to practice, you can use the script provided to fetch coi sequences from accession numbers, it is a good practice.
   
   ```bash
+
+  conda activate lab7
   # Fetch COI sequences
-  python scripts/fetch_sequences.py --email your_email@whatever.com --accessions data/accessionsCOI.tsv
+  python scripts/fetch_sequences.py --email your_email@whatever.com --accessions data/accessions_coi.tsv
 
   # Align sequences first
-  mafft --auto COI_tritonia.fasta > COI_tritonia_aligned.fasta
+  mafft --auto tritonia_COI.fasta > tritonia_coi_aligned.fasta
 
-# Run RAxML-NG
-raxml-ng --msa COI_tritonia_aligned.fasta --model GTR+G+I \
-         --prefix coi_tritonia --seed 42 --threads 2 --all --bs-trees 100
+  # Run RAxML-NG
+  raxml-ng --msa tritonia_coi_aligned.fasta --model GTR+G+I \
+         --prefix coi_tritonia --seed 42 --threads 2 --all --bs-trees 100  # spolier: this gives a very common error. Try to solve it on your own with everything you learnt already
+  ```
+
+  ### 2.3 Submit the job to mPTP server
+  1.	Go to: https://mptp.h-its.org/#/tree
+  2.	Upload your ML tree file (e.g. coi_tritonia.raxml.bestTree).
+  3.	Set minimum branch length to 0.0001 (or leave default).
+  4.	Select 'Single' or 'Multi' rate — try both and compare.
+  5.	Click Run and download the result file and image.
+
+
 
 
 
