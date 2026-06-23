@@ -25,6 +25,9 @@ We start by opening **RStudio**. You should see four panels:
 | **Files / Plots / Packages / Help** (bottom-right) | File browser, plot viewer, package manager, documentation |
 
 Open the script `01-intro-to-R.R` that comes with this practical (in the Scripts folder). We'll run it together.
+If not all the packages are installed, RStudio gives you a warning. You can click 'install' or wait until section 2, where you'll need to install packages.
+<img width="944" height="168" alt="image" src="https://github.com/user-attachments/assets/0a504408-2c78-4c85-b27a-6ec421c90a42" />
+
 
 ---
 
