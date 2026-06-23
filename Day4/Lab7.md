@@ -10,7 +10,7 @@ The molecular and morphological/colour stories disagree, which makes species del
 
   ### Objectives
   
-    By the end of this session, you should be able to:
+By the end of this session, you should be able to:
 
   * Interpret geographic patterns in phylogenetic trees (phylogeography).
   * Explain what a single-locus species delimitation method does, and what it does not do.
@@ -45,6 +45,7 @@ The molecular and morphological/colour stories disagree, which makes species del
 
 <img width="1024" height="703" alt="image" src="https://github.com/user-attachments/assets/bfba04ce-ef69-421c-994a-05f8323d964e" />
 
+
 | Think About It|
 | --- |
 | A **barcode gap** exists when the minimum interspecific distance is larger than the maximum intraspecific distance. ABGD automates its detection. |
@@ -61,6 +62,28 @@ The molecular and morphological/colour stories disagree, which makes species del
 | GMYC	| Switch from Yule (speciation) to coalescent branching rate	| Ultrametric tree (BEAST)	| Single threshold in time |
 | mPTP	| Per-species coalescent model on branch lengths |	Non-ultrametric ML tree	| Each species has its own coalescent rate |
 | ASAP	| Barcode gap, greedily assembled	| Pairwise distance matrix	| Simple, fast; ranks partitions by score |
+
+| What these methods do NOT do |
+| They work on a single locus, they cannot detect species whose gene trees disagree (ILS, hybridisation). |
+| They cannot confirm that delimited entities are reproductively isolated. |
+| Their output is a hypothesis, not ground truth. Always combine with morphology and ecology. |
+
+  ### 2.2 Running mPTP
+  `mPTP` (**multi-rate Poisson Tree Processes**) requires an unrooted ML tree with branch lengths. We will use the COI alignment.
+
+  You have the data in the server, but if you want to practice, can use the script provided to fetch sequences from accession numbers, it is a good practice.
+  
+  ```bash
+  # Fetch COI sequences
+  python scripts/fetch_sequences.py --email your_email@whatever.com --accessions data/accessionsCOI.tsv
+
+  # Align sequences first
+  mafft --auto COI_tritonia.fasta > COI_tritonia_aligned.fasta
+
+# Run RAxML-NG
+raxml-ng --msa COI_tritonia_aligned.fasta --model GTR+G+I \
+         --prefix coi_tritonia --seed 42 --threads 2 --all --bs-trees 100
+
 
 
 ## 2. BAMM analysis
