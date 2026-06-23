@@ -11,7 +11,7 @@ First we connect to the server as explained in the instruction.
 
 ```
 #Copy the proteomes folder in your own personal folder 
-cp -r /home/ubuntu/Share/Proteomes .
+cp -r /home/user_number/Share/Proteomes .
 ```
 
 These are the proteomes for the molluscs species we want to infer the phylogeny for.
