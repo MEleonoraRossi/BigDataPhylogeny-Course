@@ -1,32 +1,65 @@
-# Species Delimitation & Networks
+# Phylogeography, Species Delimitation, Networks, Hybridisation & Diversification Rates
 
-  ## 1. Introduction
-  The Southern Ocean nudibranch genus Tritonia has a messy taxonomic history: several named "species" turned out to be colour morphs of the same biological species, and at least one specimen had been misidentified for   decades. Rossi et al. (2021) used three markers  (*COI* (mitochondrial, protein-coding), *16S rRNA* (mitochondrial, non-coding), and *H3* (nuclear, protein-coding)), together with two species delimitation methods (*ABGD* and *GMYC*) to show that Antarctic/Weddell Sea specimens and Bouvet Island specimens form two clearly separated species: *T. challengeriana* and *T. dantarti*, regardless of their orange or white colouration.
 
-The molecular and morphological/colour stories disagree, which makes species delimitation results meaningful and discussable rather than a foregone conclusion. It pairs naturally with the mollusk datasets used in your other practicals. A follow-up study (Rossi et al. 2023, Cladistics; see 'further_reading' section) applied mPTP directly to this group and even resurrected an old genus name (*Myrella*) based on molecular species delimitation.
+  ## 0. Introduction
+  This practical session covers the conceptual and computational tools needed to move beyond simple phylogeny reconstruction. You will work with two complementary datasets: (1) real sequence data from the Antarctic nudibranch genus *Tritonia* ([Rossi et al. 2021](https://link.springer.com/article/10.1007/s00300-021-02813-8), Polar Biology) for species delimitation and network analyses; and (2) a simulated mollusc-like dataset to explore hybridisation, coalescent methods, and diversification-rate analysis. The BAMM section uses the COI tree from the GitHub repository.
+
+  The Southern Ocean nudibranch genus *Tritonia* has a messy taxonomic history: several named "species" turned out to be colour morphs of the same biological species, and at least one specimen had been misidentified for   decades. Rossi et al. (2021) used three markers  (*COI* (mitochondrial, protein-coding), *16S rRNA* (mitochondrial, non-coding), and *H3* (nuclear, protein-coding)), together with two species delimitation methods (*ABGD* and *GMYC*) to show that Antarctic/Weddell Sea specimens and Bouvet Island specimens form two clearly separated species: *T. challengeriana* and *T. dantarti*, regardless of their orange or white colouration.
+
+The molecular and morphological/colour stories disagree, which makes species delimitation results meaningful and discussable rather than a foregone conclusion. It pairs naturally with the mollusc datasets used in your other practicals. 
 
   ### Objectives
     By the end of this session, you should be able to:
 
-
+  * Interpret geographic patterns in phylogenetic trees (phylogeography).
   * Explain what a single-locus species delimitation method does, and what it does not do.
-  * Run ASAP and mPTP on real data and interpret their output.
-  * Build a quick ML tree as input for tree-based delimitation (mPTP).
-  * Build a phylogenetic/haplotype network and explain how it differs from a tree.
-  * Critically compare tree and network representations of the same data, and identify when a network is showing you something a tree cannot.
+  * Run ASAP and mPTP species delimitation on real data and critically evaluate their output.
+  * Build and interpret phylogenetic/haplotype networks and explain how it differs from a tree.
+  * Visualise reticulate evolution in SplitsTree and articulate when a network outperforms a tree.
+  * Understand how hybridisation, introgression and recombination produce non-tree-like signals.
+  * Run ASTRAL and ASTRAL-Pro to estimate species trees from gene trees (coalescent framework).
+  * Interpret BAMM and MEDUSA diversification-rate analyses.
 
-  ### Datasets and software
-  The original paper analyses 41 *Tritonia* ingroup specimens + 17 outgroup taxa (58 sequences) across three markers. We use here a reduced dataset: the full *Tritonia* ingroup, plus 2–3 outgroups only (one close relative for rooting, e.g. another Tritoniidae/Dendronotoidea species, rather than all four Proctonotoidea rooting taxa). 
+---
 
-  For this session you'll need to use software pre-installed on your local computer:
-  * PopArt (https://popart.maths.otago.ac.nz/download/)
-  * SplitsTree (https://software-ab.cs.uni-tuebingen.de/download/splitstree6/welcome.html)
+## 1. Simple Phylogeographic Example: Interpreting Geographic Patterns in Trees
+  ### 1.1 Background
+  The nudibranch genus *Tritonia* provides a textbook case of how molecular phylogenetics resolves taxonomic puzzles that morphology alone cannot. ]Rossi et al. (2021)](https://link.springer.com/article/10.1007/s00300-021-02813-8) collected specimens from the Weddell Sea (high Antarctic, ~70–75°S) and Bouvet Island (Sub-Antarctic, ~54°S), covering depths from 130 to 789 m. Both sites harbour orange and white colour morphs, which were previously considered distinct species or at least diagnostically useful characters.
 
-  Also software hosted in online servers:
-  * mPTP ([https://link.springer.com/article/10.1007/s00300-021-02813-8](https://mptp.h-its.org/#/tree))
-  * ASAP
-  * GMYC (https://species.h-its.org/gmyc/)
-  * 
+**Key finding**: COI + 16S + H3 data placed Weddell Sea specimens in one strongly supported clade (PP = 1, BS = 100) and Bouvet Island specimens in another (PP = 1, BS = 98), regardless of colour. Two species were supported by both ABGD and GMYC: *T. challengeriana* (circum-Antarctic) and *T. dantarti* (Bouvet Island endemic).
+
+  ### 1.2 Dataset
+  You have downloaded the data from Rossi et al. (2021). The dataset comprises 41 *Tritonia* ingroup specimens + 2–3 outgroup taxa, sequenced for three markers:
+•	COI — mitochondrial, protein-coding, ~601 bp (3rd codon position included)
+•	16S rRNA — mitochondrial, non-coding, ~486 bp
+•	H3 — nuclear, protein-coding, ~328 bp (3rd codon position included)
+
+  ### 1.3 Phylogeographic interpretation
+  Open the published ML/BI tree (Fig. 2 of Rossi et al. 2021, or load your own RAxML run output). Answer the following:
+1.	Specimens are colour-coded: red = Bouvet Island, blue = Weddell Sea. Do the two colours form reciprocally monophyletic groups, or do they mix across the tree?
+2.	One specimen labelled *T. antarctica* (voucher CASIZ171177) clusters with *T. dantarti* rather than *T. challengeriana*. What does this suggest about historical taxonomy?
+3.	T. challengeriana spans the Weddell and Ross Seas. What oceanographic feature could explain this circumpolar distribution? (Hint: think about the Antarctic Circumpolar Current.)
+4.	The interspecific K80 distance between the two species is 12–14%, while intraspecific variation is only ~1.7–1.9%. What does this barcode gap tell you about the strength of species boundaries here?
+5.	Would you expect a similar pattern in the nuclear H3 marker? Why or why not, given the different effective population sizes of mitochondrial vs. nuclear loci?
+
+<img width="1024" height="703" alt="image" src="https://github.com/user-attachments/assets/bfba04ce-ef69-421c-994a-05f8323d964e" />
+
+| Think About It|
+| --- |
+| A **barcode gap** exists when the minimum interspecific distance is larger than the maximum intraspecific distance. ABGD automates its detection. |
+| Is there a gap here? What biological factors could erode it (e.g. recent speciation, gene flow, incomplete lineage sorting)? |
+
+---
+
+## 2. Species Delimitation
+  ### 2.1 Background
+  Single-locus species delimitation methods look for a transition between inter- and intraspecific branching patterns. They differ in what signal they use:
+| Method	| What it models	| Input needed	| Key assumption |
+| --- | --- | --- | --- |
+| ABGD	| Barcode gap in pairwise distances	| Aligned sequences	| Gap exists between intra- and interspecific variation |
+| GMYC	| Switch from Yule (speciation) to coalescent branching rate	| Ultrametric tree (BEAST)	| Single threshold in time |
+| mPTP	| Per-species coalescent model on branch lengths |	Non-ultrametric ML tree	| Each species has its own coalescent rate |
+| ASAP	| Barcode gap, greedily assembled	| Pairwise distance matrix	| Simple, fast; ranks partitions by score |
 
 
 ## 2. BAMM analysis
