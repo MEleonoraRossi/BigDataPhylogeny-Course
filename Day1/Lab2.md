@@ -83,7 +83,7 @@ If not, we have a folder prepared that you can access and look at the output. Ki
 
 
 Our goal is to identify the orthologous genes that we will use to create the super alignment to infer the mollusc phylogeny. 
-In our case, the repository where we can find them is `/home/ubuntu/Orthofinder/Single_Copy_Orthologue_Sequences` 
+In our case, the repository where we can find them is `Share/Single_Copy_Orthologue_Sequences` 
 
 If you have good quality genomes, normally you will end up with a set of genes that orthofinder has identified as single copy orthologs (i.e. true orthologs) and you could ideally start you analysis from these set of genes. Supposedely, these genes do not contain paralogs. 
 In case you are not so lucky (especially when using a lot of transcriptomes), most likely you will have to fish out you genes from the `Orthogroups` of `Orthologues` folders.
