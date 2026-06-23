@@ -7,9 +7,9 @@ A bit of familiarity with the command line will help you greatly in our practica
 
 Connect to the cluster as explained in the instruction by opening the Terminal on your machine. You'll likely see something like this
 ```sh
-(base) eleonora@mac ~ % 
+ubuntu@ip-172-31-15-77:~$
 ```
-The `%` is called the prompt; on other machines (e.g. Windows) can also look like this `>`.
+The `$` is called the prompt; on other machines (e.g. Windows) can also look like this `>`.
 
 ## Running commands
 
@@ -41,9 +41,14 @@ Another way is to type `-h` or `--help` after the command or program we want to 
 
 ## Navigating and working in the filesystem
 
-The nested hierarchy of folders and files on your computer is called the filesystem. When we use the computer, we are used to click on the folder or the file we want to open. On the terminal, we cannot do that with a click, but we need to navigate and access the folder (we normally refer to them as directories) we want to open with specific commands. 
+The nested hierarchy of folders and files on your computer is called the filesystem. When we use the computer, we are used to click on the folder or the file we want to open. 
 
+![alt text](<Screenshot 2026-06-23 at 10.51.06.png>)
+
+On the terminal, we cannot do that with a click, but we need to navigate and access the folder (we normally refer to them as directories) we want to open with specific commands. 
 All directories are nested within a previous directory, and you can also have multiple directories in the same location, as you would have, for example, different folders in your Finder app. 
+
+![alt text](FileSystem-1.png)
 
 To know where we are in the filesystem of our computer or HPC, we can type in the directory `pwd`, short for print working directory.
 
@@ -56,19 +61,18 @@ ubuntu@ip-172-31-15-77:~$ pwd
 Let's say we want to create a new directory, normally we would do right click -> new. Here we use the command `mkdir` (make directory).
 
 ```sh
-(base) eleonora@mac Desktop % mkdir Linux_tutorial
+ubuntu@ip-172-31-15-77:~$c mkdir Linux_tutorial
 ```
 To check if we have created the directory, we type `ls` (list), which allows us to see all the files and directories present in the directory we're in.
 
 ```sh
-(base) eleonora@mac Desktop % ls
+ubuntu@ip-172-31-15-77:~$  ls
 Linux_tutorial
 ```
 Now we want to go into the directory we just created. We can use `cd` (change directory) and the name of the directory
 
 ```sh
-(base) eleonora@mac Desktop % cd Linux_tutorial 
-(base) eleonora@mac Linux_tutorial % 
+(base) ubuntu@ip-172-31-15-77:~$ cd Linux_tutorial 
 
 ```
 Type again `pwd` and check the pathway you're in. Is it similar to the previous pwd?
@@ -139,14 +143,14 @@ blah.txt
 What if we wanted to list all the files that end with .txt?
 
 ```sh
-username@bash:~/wildcards_test$ ls *.txt  
+ubuntu@ip-172-31-15-77:~/Linux_tutorial$ ls *.txt  
 carol.txt  blah.txt  firstfile.txt 
 ```
 We can use the * wildcard to move files for example
 ```sh
-username@bash:~/wildcards_test$  mkdir images
-username@bash:~/wildcards_test$  mv *png images/
-username@bash:~/wildcards_test$  ls images/ 
+ubuntu@ip-172-31-15-77:~/Linux_tutorial$  mkdir images
+ubuntu@ip-172-31-15-77:~/Linux_tutorial$  mv *png images/
+ubuntu@ip-172-31-15-77:~/Linux_tutorial$  ls images/ 
 example.png
 
 ```
@@ -154,7 +158,7 @@ The wildcard `?` represent a single character
 For example, it can be used to list all files whose second letter is a:
 
 ```sh
-username@bash:~/wildcards_test$ ls ?a*
+ls ?a*
 carol.txt
 ```
 In Unix there are many wildcards that can be used to manipulate data, if you want to dig deeper [here](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) you have a nice summary of all of them.
