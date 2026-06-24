@@ -87,14 +87,22 @@ A gene tree built from a sequence alignment does not always have the same shape 
 Before any tree can be built, the sequences need to be aligned column-by-column so that homologous positions line up.
 
 ```bash
-for f in *.fasta; do mafft --auto $f > aligned/"${f%.fasta}_aln.fasta"; done
+for f in *.fasta; do mafft --auto $f > aligned/"${f%.fasta}_aln.fasta"; done # move to the correct folder where the fasta sequences are in both 'core_gene_set' and 'dtl_engineered' datasets
 ```
 
 This runs MAFFT with its automatic mode (`--auto`) on every FASTA file in `Lab6/data/core_gene_set/` and `Lab6/data/dtl_engineered/`, writing the alignments to matching `aligned/` subfolders. Open one or two of the resulting `_aln.fa` files in a text editor or alignment viewer (Jalview, AliView, or even just `less` in the terminal) and look at how similar the sequences already are.
 
 ### 2.3 Run GeneRax
+For doing so, you have a script available that needs the alignments and the species tree in their correct place:
 
 ```bash
+cd /home/user_number/Lab6/
+mkdir -p scripts
+mkdir -p data/species_tree
+mkdir -p results
+cp /home/ubuntu/Share/Lab6/scripts/generax.sh scripts/
+cp /home/ubuntu/Share/Lab6/data/species_tree/species_tree.nwk data/species_tree/
+
 bash scripts/generax.sh
 ```
 
