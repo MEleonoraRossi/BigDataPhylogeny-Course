@@ -279,7 +279,7 @@ Of course, we have run the BI for you. The topology is on the Data/Lab3/ folder 
   for f in *.fas; do
   iqtree -s $f -m TESTMERGE -B 1000 --wbtl -T AUTO;
   done
-  # --wbt writes the full set of bootstrap trees to gene_tree_bt.ufboot.
+  # --wbtl writes the full set of bootstrap trees to gene_tree_bt.ufboot.
   ```
 
   *TIP*
