@@ -73,7 +73,7 @@ mv FcC_supermatrix.fas Mollusca_FcC_supermatrix.fas
   
   *TIP*
   
-  The `.iqtree` log file contains the full model comparison table.
+  The iqtree `.log` file contains the full model comparison table.
   Look for lines labelled as 'AIC', 'AICc', and 'BIC', they may differ! Always justify which criterion you use.
  
   #### Understanding the model notation
