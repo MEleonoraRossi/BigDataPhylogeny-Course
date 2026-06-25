@@ -111,8 +111,9 @@ By the end of this session, you should be able to:
   1. Go to the [ASAP website](https://bioinfo.mnhn.fr/abi/public/asap/). It seems that the website is down, but you can visit this [site](https://itaxotools.org/download.html#hyperlinkDelimit) and download the program. It is pretty simple to install.
   2. Upload the COI alignment in FASTA format.
   3. Choose distance model: Kimura 2-parameter (K80).
-  4. Click `Analyse` (in the website) or `RUN` (in the app). ASAP presents ranked partitions with an ASAP-score. # If it takes too long, you can leave it running and move to the next step.
-  5. The top-ranked partition is the most likely number of species. Note the score and the partition.
+  4. In the app version, mark the `MEGA CSV` option instead of `Generate all files`, otherwise it will be stuck.<img width="94" height="32" alt="image" src="https://github.com/user-attachments/assets/5656262e-6c95-4c3b-892f-1ac19b904456" />
+  5. Click `Analyse` (in the website) or `RUN` (in the app). ASAP presents ranked partitions with an ASAP-score. # If it takes too long, you can leave it running and move to the next step.
+  6. The top-ranked partition is the most likely number of species. Note the score and the partition.
 
   ### 2.6 Comparison Exercise
   Fill in the table below with your results:
