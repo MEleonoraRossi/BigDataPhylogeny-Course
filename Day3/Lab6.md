@@ -196,7 +196,10 @@ GeneRax's `.xml` output can be turned into a picture showing the gene tree embed
 
 You can also try [icytree](https://icytree.org/) to visualise the xml trees.
 
-There are many different options where you can apply reconciliation. One of them is using [SpeciesRax](https://academic.oup.com/mbe/article/39/2/msab365/6503503). Because of time constraints, we are not using it here, but we leave you some commands that can try to run at home if interested.
+[Thirdkind](https://github.com/simonpenel/thirdkind) is another option for visualisation. It converts the reconciled trees into svg images.
+
+
+There are many different options where you can apply reconciliation. One of them is using [SpeciesRax](https://academic.oup.com/mbe/article/39/2/msab365/6503503) to infer phylogenies. Because of time constraints, we are not using it here.
 
 
 ---
