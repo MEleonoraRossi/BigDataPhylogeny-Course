@@ -168,7 +168,7 @@ A tree is appropriate when lineages have fully sorted (diverged long ago, no gen
   Check that the format is correct. It should look like this:
   <img width="607" height="178" alt="image" src="https://github.com/user-attachments/assets/b9c07f5b-a636-4fb0-af2f-dc4dd1a1c39e" />
 
-  Then manually add a TRAITS block to colour specimens by species/location (see PopArt documentation for syntax).
+  Then manually add a TRAITS block to colour specimens by species/location (see PopArt [documentation](https://popart.maths.otago.ac.nz/documentation/examplenex/) for syntax).
 
   #### Running the network
   1.	Open PopArt > File > Open > select your .nex file.
