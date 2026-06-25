@@ -168,13 +168,21 @@ A tree is appropriate when lineages have fully sorted (diverged long ago, no gen
   Check that the format is correct. It should look like this:
   <img width="607" height="178" alt="image" src="https://github.com/user-attachments/assets/b9c07f5b-a636-4fb0-af2f-dc4dd1a1c39e" />
 
-  Then manually add a TRAITS block to colour specimens by species/location (see PopArt [documentation](https://popart.maths.otago.ac.nz/documentation/examplenex/) for syntax).
+  Then manually you could add a TRAITS block with information from geolocalisation (GPS) or another trait you want to map to the network (see PopArt [documentation](https://popart.maths.otago.ac.nz/documentation/examplenex/) for syntax).
 
   #### Running the network
   1.	Open PopArt > File > Open > select your .nex file.
-  2.	Network > TCS Network  (or try Median-Joining Network for comparison).
-  3.	Use Graph > Colour nodes by trait to map location (Weddell Sea / Bouvet Island) and colour morph (orange / white).
-  4.	Export figure as PDF or SVG.
+
+  A warning message with appear probably with information on your sequences:
+  <img width="442" height="122" alt="image" src="https://github.com/user-attachments/assets/930c14d1-a55b-4cf1-ab8c-ae38ddd4a6b9" />
+  Don't worry, you can click `accept`.
+  A second message will pop-up:
+  <img width="469" height="132" alt="image" src="https://github.com/user-attachments/assets/30ddee87-ab11-4364-a4b3-85328c126ab1" />
+  Here you decide what to do, depending on your dataset.
+  
+  3.	Network > TCS Network  (or try Median-Joining Network for comparison).
+  4.	Use Graph > Colour nodes by trait to map location (Weddell Sea / Bouvet Island) and colour morph (orange / white).
+  5.	Export figure as PDF or SVG.
 
 
 
