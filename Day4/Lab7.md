@@ -99,12 +99,7 @@ By the end of this session, you should be able to:
   5.	Set your email address to receive the results and a notice when the run is finished.
   6.	Click Run and download the result file and image.
 
-  We try the same analysis in parallel using mPTP installed in the server:
-
-  ```bash
-  mptp --ml --multi --outgroup 'HM162745_Leminda-millecra_S.A.-Western-Cape-Province','GQ292060_Curnon-granulosa_Antarctica-Ross-sea','KF643932_Dirona-albolineata_unknown','DQ026831_Dirona-picta_unknown' --outgroup_crop
-  ```
-
+  
   ### 2.4 Interpret results
   -	How many species does mPTP delimit?
   -	Do these correspond to the two clades (*T. challengeriana* / *T. dantarti*) recovered by ML/BI?
