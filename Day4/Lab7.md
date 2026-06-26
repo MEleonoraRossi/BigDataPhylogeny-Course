@@ -19,7 +19,7 @@ By the end of this session, you should be able to:
   * Visualise reticulate evolution in SplitsTree and articulate when a network outperforms a tree.
   * Understand how hybridisation, introgression and recombination produce non-tree-like signals.
   * Run ASTRAL and/or ASTRAL-Pro to estimate species trees from gene trees (coalescent framework).
-  * Interpret BAMM and MEDUSA diversification-rate analyses.
+  * Interpret BAMM diversification-rate analyses.
 
 ---
 
