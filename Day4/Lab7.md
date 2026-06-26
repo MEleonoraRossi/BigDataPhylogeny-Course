@@ -18,7 +18,7 @@ By the end of this session, you should be able to:
   * Build and interpret phylogenetic/haplotype networks and explain how it differs from a tree.
   * Visualise reticulate evolution in SplitsTree and articulate when a network outperforms a tree.
   * Understand how hybridisation, introgression and recombination produce non-tree-like signals.
-  * Run ASTRAL and ASTRAL-Pro to estimate species trees from gene trees (coalescent framework).
+  * Run ASTRAL and/or ASTRAL-Pro to estimate species trees from gene trees (coalescent framework).
   * Interpret BAMM and MEDUSA diversification-rate analyses.
 
 ---
@@ -128,6 +128,27 @@ By the end of this session, you should be able to:
   · The peak on the right (High distances, >0.12): Represents interspecific variation (differences between different species).
   
   The empty space corresponding to the area between 0.03 and 0.11 where there are almost no bars is what is called the `barcode gap`. This clear separation is the statistical evidence that allows the authors to affirm that the specimens belong to different species and are not simply variations of the same population.
+
+  * Species.svg
+  <img width="1065" height="585" alt="image" src="https://github.com/user-attachments/assets/56f8107a-8bb2-4106-b175-ae41f4614171" />
+
+  Upper graph (ASAP Score vs. Distance):
+  · The horizontal axis (X) represents the genetic distance threshold that the program uses to "cut" and separate groups.
+  · The vertical axis (Y) shows the ASAP Score. The lower this score is, the more robust and likely the species partition is.
+  · The blue area indicates the best partition found by the program. In your case, it seems that the best solution is at a low distance threshold, which coincides with the article, where two species (*T. challengeriana* and *T. dantarti*) are clearly identified with an internal variation of approximately 1.7-1.9%.
+
+  Lower tree (dendrogram):
+  It is a hierarchical representation of the sequences (identified with GenBank codes such as MN... or HM... which also appear in the article).
+  The colored squares at the nodes (according to the legend: red <0.01, yellow <0.05) indicate the statistical support or probability that that group is indeed a separate species. If you look closely, the *Tritonia* sequences cluster together in a way that is consistent with the study data.
+
+  * scores.tab and partitions.tab
+  These are data files in text/table format:  `partitions.tab`: Contains all the division "hypotheses" that the program has tested. For example: "Hypothesis 1: there are 2 species", "Hypothesis 2: there are 5 species", etc.
+`scores.tab`: Lists the scores of each partition. Allows you to see numerically which is the second or third best option if the first one does not convince you morphologically.
+
+  * ranks.svg and groups.svg
+  `ranks.svg`: It is a graph that orders the different partitions (proposed for how many species there are) according to their score. It helps you see if there is much difference between the "best" solution and the others.
+  `groups.svg`: Shows in a more simplified way how the individuals have been distributed in each group for the best partition chosen.
+<img width="1033" height="476" alt="image" src="https://github.com/user-attachments/assets/4fe3c0b5-7329-46b4-bd19-ae3831d31544" />
 
 
   ### 2.6 Comparison Exercise
@@ -252,11 +273,11 @@ For *Tritonia*, you could test:
 
   Input:  many gene trees (one per UCE locus)
 
-  ↓
+              ↓
 
   ASTRAL-style quartet analysis
 
-  ↓
+              ↓
 
   Output: which nodes are "real" species boundaries vs. population structure
 
@@ -368,15 +389,19 @@ A tree is appropriate when lineages have fully sorted (diverged long ago, no gen
   1.	Open PopArt > File > Open > select your .nex file.
 
   A warning message with appear probably with information on your sequences:
+  
   <img width="442" height="122" alt="image" src="https://github.com/user-attachments/assets/930c14d1-a55b-4cf1-ab8c-ae38ddd4a6b9" />
+  
   Don't worry, you can click `accept`.
   A second message will pop-up:
+  
   <img width="469" height="132" alt="image" src="https://github.com/user-attachments/assets/30ddee87-ab11-4364-a4b3-85328c126ab1" />
+  
   Here you decide what to do, depending on your dataset.
   
-  3.	Network > TCS Network  (or try Median-Joining Network for comparison).
-  4.	Use Graph > Colour nodes by trait to map location (Weddell Sea / Bouvet Island) and colour morph (orange / white).
-  5.	Export figure as PDF or SVG.
+  3.	`Network > TCS Network`  (or try Median-Joining Network for comparison).
+  4.	Use `Edit > Set trait color` to map location (Weddell Sea / Bouvet Island) and colour morph (orange / white) (you should have this information in advance as traits in the nexus file or add a trait file porteriorly).
+  5.	Export figure as PDF or SVG (`File > Export graphics`).
 
   #### Interpreting the network
   - Are the two species (*T. challengeriana* and *T. dantarti*) separated by many mutational steps or few?
@@ -387,16 +412,16 @@ A tree is appropriate when lineages have fully sorted (diverged long ago, no gen
   ### 3.2 Networks in SplitsTree
   #### Phylogenetic Networks and Reticulation
   `SplitsTree` implements neighbour-net and splits-graph algorithms that display incompatible phylogenetic signal as parallelograms (boxes) rather than forcing a single bifurcating topology. Large boxes indicate conflicting signal from:
-•	Recombination (reshuffling of genetic material)
+•	Recombination (reshuffling of genetic material). Think in the marker you are analysing, mitochondrial genes do not recombine, for instance...
 •	Hybridisation / introgression (gene flow between lineages)
 •	Incomplete lineage sorting (ILS) — ancestral polymorphism retained across speciation events
 •	Saturation / homoplasy in the sequences
 
   If you didn't do it yet, download [SplitsTree6](https://software-ab.cs.uni-tuebingen.de/download/splitstree6/welcome.html) and install.
 
-1.	Open SplitsTree > File > Open > select your aligned COI FASTA or NEXUS.
+1.	Open `SplitsTree > File > Open > select your aligned COI FASTA or NEXUS`.
 2.	The default view uses Neighbour-Net. Examine the network.
-3.	Go to Analysis > Bootstrap (100 replicates) to assess support for splits.
+3.	Go to `Analysis > Bootstrap` (100 replicates) to assess support for splits.
 4.	Try the same with the 16S and H3 markers separately. Do they show the same topology?
 
   ### 3.3 Trees vs network comparison
@@ -411,8 +436,7 @@ A tree is appropriate when lineages have fully sorted (diverged long ago, no gen
   
 - Does the SplitsTree network for COI show large boxes (conflicting signal) or is it mostly tree-like?
 - Compare the COI network to the 16S network. Are the splits consistent? Discordance between markers can indicate ILS or past gene flow.
-- If you see boxes between T. challengeriana and T. dantarti, does this mean they hybridise? What alternative explanations exist?
-- In which scenarios would you publish a network rather than (or alongside) a tree?
+- If you see boxes between `T. challengeriana` and `T. dantarti`, does this mean they hybridise? What alternative explanations exist?
 
 ---
 
