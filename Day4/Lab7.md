@@ -67,10 +67,10 @@ By the end of this session, you should be able to:
 | mPTP	| Per-species coalescent model on branch lengths |	Non-ultrametric ML tree	| Each species has its own coalescent rate |
 | ASAP	| Barcode gap, greedily assembled	| Pairwise distance matrix	| Simple, fast; ranks partitions by score |
 
-| What these methods do NOT do |
-| They work on a single locus, they cannot detect species whose gene trees disagree (ILS, hybridisation). |
-| They cannot confirm that delimited entities are reproductively isolated. |
-| Their output is a hypothesis, not ground truth. Always combine with morphology and ecology. |
+* What these methods do NOT do 
+  * They work on a single locus, they cannot detect species whose gene trees disagree (ILS, hybridisation).
+  * They cannot confirm that delimited entities are reproductively isolated.
+  * Their output is a hypothesis, not ground truth. Always combine with morphology and ecology. 
 
   ### 2.2 Running mPTP
   `mPTP` (**multi-rate Poisson Tree Processes**) requires an unrooted ML tree with branch lengths. We will use the COI alignment.
