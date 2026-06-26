@@ -144,6 +144,9 @@ If you like testing more possible options, you can try [GMYC online](https://spe
   - Could intraspecific population structure within *T. challengeriana* (Weddell Sea vs. Ross Sea) fool a delimitation method into over-splitting?
   - What additional data (more loci, more specimens, morphology) would increase confidence?
 
+  ### 2.8 Further analyses
+  In the real life, if you have information for more molecular markers available, you should use it! We provided sequences for two more molecular markers (16S and h3). You can try using these markers for the delimitation analyses and then compare if the results are consistent with the ones you got for coi.
+
 ---
 
 ## 3. Haplotype Networks
