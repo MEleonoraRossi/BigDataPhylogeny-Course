@@ -169,6 +169,15 @@ python3 scripts/summarize_dtl.py results/engineered_UndatedDTL/reconciliations/F
 - For `FAMILY_A_DUP_LOSS`, which branch of the species tree shows a duplication event? Does it match where we said we inserted one (the branch leading to N14, the cephalopod ancestor)? Which branch shows the loss?
 - For `FAMILY_B_HGT` under the `UndatedDTL` model, is there a transfer event, and if so, between which two species/branches? Does it match the *Octopus vulgaris* → *Lingula anatina* transfer we engineered?
 
+After answering the questions, you realised that the transfers file is empty and that you get 0 transfers even in the dataset that we know it has transfers. You can add rates to your generax commands so that can give different weights to each of the event (DTL). You try it like this:
+
+```bash
+generax --families data/dtl_engineered/families_engineered.txt --species-tree data/species_tree/species_tree.nwk \
+    --rec-model UndatedDTL --reconcile  --dup-rate 1.0 --loss-rate 1.0 --transfer-rate 2.0 --prefix results/output_DTL
+
+python3 scripts/summarize_dtl.py results/output_DTL/reconciliations/FAMILY_B_HGT_speciesEventCounts.txt
+```
+
 ### 2.5 Comparing evolutionary scenarios: DTL vs DL-only
 
 `FAMILY_B_HGT` was reconciled twice: once allowing transfers (`results/engineered_UndatedDTL`) and once forbidding them (`results/engineered_UndatedDL`). Compare the two:
